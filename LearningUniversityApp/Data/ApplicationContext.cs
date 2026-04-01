@@ -4,7 +4,7 @@ namespace LearningUniversityApp.Data
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Student> students { get; set; }
+        public DbSet<Student> students { get; set; } 
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -13,6 +13,11 @@ namespace LearningUniversityApp.Data
             modelBuilder.Entity<Student>().HasKey(s => s.Id);
 
                
+        }
+
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {
+            
+            
         }
        
     }

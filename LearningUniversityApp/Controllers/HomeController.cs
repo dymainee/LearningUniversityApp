@@ -21,6 +21,10 @@ namespace LearningUniversityApp.Controllers
         {
             return View();
         }
+
+        public IActionResult Disiplines() { 
+            return View();
+        }
         
     }
 }
