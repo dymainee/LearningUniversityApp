@@ -1,0 +1,22 @@
+﻿@model LearningUniversityApp.Models.Student
+
+<form 
+    asp-controller="Student" 
+    asp-action="CreatePost"
+    method="post">
+
+    <label>Ім'я</label>
+    <input asp-for="Name">
+
+    <label>Прізвище</label>
+    <input asp-for="Surname">
+
+    <label>Дата народження</label>
+    <input type="datetime" asp-for="DateOfBirth">
+
+    <label>Вік</label>
+    <input type="number" asp-for="Age">
+
+    <button type="submit">Зберегти</button>
+
+</form>

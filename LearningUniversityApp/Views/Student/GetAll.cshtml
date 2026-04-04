@@ -1,0 +1,28 @@
+﻿@model List<LearningUniversityApp.Models.Student>
+<a asp-controller="Student" asp-action="Create">Створити</a>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Date of birth</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Student student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.Name</td>
+                <td>@student.Surname</td>
+                <td>@student.Age</td>
+                <td>@student.DateOfBirth</td>
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>

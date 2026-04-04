@@ -8,22 +8,34 @@ namespace LearningUniversityApp.Controllers
     {
         private ApplicationContext _context;
 
-        public StudentController(ApplicationContext context) { 
+        public StudentController(ApplicationContext context)
+        {
             this._context = context;
         }
-        
-        
+
+
         public IActionResult Index()
         {
+            return View();
+        }
 
+        public IActionResult GetAll()
+        {
+            List<Student> students = _context.students.ToList();
+            return View(students);
+        }
 
-            var Student = new Student() { Name = "Alex" , Surname = "Dmytro"}; 
-            _context.students.Add(Student);
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreatePost(Student student)
+        {
+            _context.students.Add(student);
             _context.SaveChanges();
-            var firstStudent = _context.students.First();
-            return View(firstStudent);  
-         }
-        //DTO Data transfer object
-
+            return RedirectToAction("Index");
+        }
     }
 }
