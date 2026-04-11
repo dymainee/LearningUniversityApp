@@ -55,5 +55,13 @@ namespace LearningUniversityApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int id) {
+            Student student = _context.students.First(s => s.Id == id);
+            _context.students.Remove(student);
+            _context.SaveChanges(); 
+            return RedirectToAction("Index");
+        }
+    
     }
 }
