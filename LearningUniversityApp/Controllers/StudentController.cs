@@ -37,5 +37,23 @@ namespace LearningUniversityApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int id)
+        {
+            Student student = _context.students.First(s => s.Id == id);
+            return View(student);
+        }
+
+        [HttpPost]
+        public IActionResult EditPost(Student student)
+        {
+            Student existed_student = _context.students.First(s => s.Name == student.Name);
+            existed_student.Name = student.Name;
+            existed_student.Surname = student.Surname;
+            existed_student.DateOfBirth = student.DateOfBirth;
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

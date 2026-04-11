@@ -17,8 +17,10 @@
                 <td>@student.Id</td>
                 <td>@student.Name</td>
                 <td>@student.Surname</td>
-                <td>@student.Age</td>
                 <td>@student.DateOfBirth</td>
+                <td>
+                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Змінити</a>
+                </td>
             </tr>
         }
 

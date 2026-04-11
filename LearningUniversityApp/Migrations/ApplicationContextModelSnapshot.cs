@@ -30,9 +30,6 @@ namespace LearningUniversityApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 

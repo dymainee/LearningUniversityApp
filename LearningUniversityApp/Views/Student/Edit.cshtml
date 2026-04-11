@@ -1,9 +1,10 @@
 ﻿@model LearningUniversityApp.Models.Student
 
-<form 
-    asp-controller="Student" 
-    asp-action="CreatePost"
-    method="post">
+<form asp-controller="Student"
+      asp-action="EditPost"
+      method="post">
+
+    <input type="hidden" asp-for="Id">
 
     <label>Ім'я</label>
     <input asp-for="Name">

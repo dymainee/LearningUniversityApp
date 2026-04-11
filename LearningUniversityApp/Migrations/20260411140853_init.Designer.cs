@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningUniversityApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20260404151830_init")]
+    [Migration("20260411140853_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -32,9 +32,6 @@ namespace LearningUniversityApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
 
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
