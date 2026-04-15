@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LearningUniversityApp.Data;
 using LearningUniversityApp.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using LearningUniversityApp.ViewModels;
 
 namespace LearningUniversityApp.Controllers
 {
@@ -27,13 +29,20 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            StudentCreateViewModel studentCreateViewModel = new StudentCreateViewModel();
+            studentCreateViewModel.Groups = _context.groups.Select(g => new SelectListItem(g.Title, g.Id)).ToList();
+            return View(studentCreateViewModel);
         }
 
         [HttpPost]
-        public IActionResult CreatePost(Student student)
+        public IActionResult CreatePost(StudentCreateViewModel studentCreateViewModel)
         {
-            _context.students.Add(student);
+            Student new_student = new Student();
+            new_student.Name = studentCreateViewModel.Name;
+            new_student.Surname = studentCreateViewModel.Surname;
+            new_student.DateOfBirth = studentCreateViewModel.DateOfBirth;
+            new_student.GroupId = studentCreateViewModel.GroupId;
+            _context.students.Add(new_student);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

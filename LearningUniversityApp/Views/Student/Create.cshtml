@@ -1,4 +1,4 @@
-﻿@model LearningUniversityApp.Models.Student
+﻿@model LearningUniversityApp.ViewModels.StudentCreateViewModel
 
 <form 
     asp-controller="Student" 
@@ -13,6 +13,10 @@
 
     <label>Дата народження</label>
     <input type="date" asp-for="DateOfBirth">
+
+    <select asp-for="GroupId" asp-items="Model.Groups" class="form-control">
+        <option value="">-- Оберіть групу --</option>
+    </select>
 
     <button type="submit">Зберегти</button>
 
