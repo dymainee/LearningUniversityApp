@@ -8,6 +8,10 @@ namespace LearningUniversityApp.Models
         public string Name { get; set; } = "";
         public string Surname { get; set; } = "";
         public DateOnly DateOfBirth { get; set; }
+
+        public string GroupId { get; set; }
+
+        public Group Group { get; set; } // navigation property
         public Student(){}
         public Student(int id, string name,string surname, int age, DateOnly dateofbirth) {
             this.Id = id;
