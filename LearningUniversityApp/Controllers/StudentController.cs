@@ -16,7 +16,7 @@ namespace LearningUniversityApp.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult Menu()
         {
             return View();
         }
@@ -44,7 +44,7 @@ namespace LearningUniversityApp.Controllers
             new_student.GroupId = studentCreateViewModel.GroupId;
             _context.students.Add(new_student);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("GetAll");
         }
 
         public IActionResult Edit(int id)
@@ -62,14 +62,14 @@ namespace LearningUniversityApp.Controllers
             existed_student.DateOfBirth = student.DateOfBirth;
 
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("GetAll");
         }
 
         public IActionResult Delete(int id) {
             Student student = _context.students.First(s => s.Id == id);
             _context.students.Remove(student);
             _context.SaveChanges(); 
-            return RedirectToAction("Index");
+            return RedirectToAction("GetAll");
         }
     
     }
