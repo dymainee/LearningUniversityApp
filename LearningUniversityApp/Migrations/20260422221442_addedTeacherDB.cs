@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LearningUniversityApp.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class addedTeacherDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,6 +22,21 @@ namespace LearningUniversityApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_groups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "teachers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_teachers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,6 +72,9 @@ namespace LearningUniversityApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "students");
+
+            migrationBuilder.DropTable(
+                name: "teachers");
 
             migrationBuilder.DropTable(
                 name: "groups");

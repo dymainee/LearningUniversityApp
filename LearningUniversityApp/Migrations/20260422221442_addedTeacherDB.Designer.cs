@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningUniversityApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20260415155714_init")]
-    partial class init
+    [Migration("20260422221442_addedTeacherDB")]
+    partial class addedTeacherDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,30 @@ namespace LearningUniversityApp.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("students");
+                });
+
+            modelBuilder.Entity("LearningUniversityApp.Models.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("teachers");
                 });
 
             modelBuilder.Entity("LearningUniversityApp.Models.Student", b =>

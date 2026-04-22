@@ -6,13 +6,22 @@ namespace LearningUniversityApp.Data
     {
         public DbSet<Student> students { get; set; } 
         public DbSet<Group> groups { get; set; }  
+        //public DbSet<Subject> subjects { get; set; }
+        public DbSet<Teacher> teachers { get; set; }    
+
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Student>().HasKey(s => s.Id);
+
+            //modelBuilder.Entity<Subject>().HasKey(s => s.Id);
+
+            modelBuilder.Entity<Teacher>().HasKey(s => s.Id);
+
             modelBuilder.Entity<Group>().HasKey(s => s.Id);
+
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Group)
                 .WithMany(s => s.students)

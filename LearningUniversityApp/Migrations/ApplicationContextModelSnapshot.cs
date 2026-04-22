@@ -70,6 +70,30 @@ namespace LearningUniversityApp.Migrations
                     b.ToTable("students");
                 });
 
+            modelBuilder.Entity("LearningUniversityApp.Models.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("teachers");
+                });
+
             modelBuilder.Entity("LearningUniversityApp.Models.Student", b =>
                 {
                     b.HasOne("LearningUniversityApp.Models.Group", "Group")
