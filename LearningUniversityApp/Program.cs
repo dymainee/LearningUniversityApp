@@ -1,4 +1,5 @@
 using LearningUniversityApp.Data;
+using LearningUniversityApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

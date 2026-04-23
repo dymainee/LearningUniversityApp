@@ -5,12 +5,20 @@
         public int Id { get; set; }
         public string Title { get; set; }
 
-        public Subject() { }
+        public List<Schedule> Schedules { get; set; }
 
-        public Subject(int id, string title)
+        public List<SubjectTeacher> Teachers { get; set; }
+
+        public Subject() {
+            this.Teachers = new List<SubjectTeacher>();
+            this.Schedules = new List<Schedule>();
+        }
+
+        public Subject(string title)
         {
-            Id = id;
             Title = title;
+            this.Teachers = new List<SubjectTeacher>();
+            this.Schedules = new List<Schedule>();
         }
     }
 }
