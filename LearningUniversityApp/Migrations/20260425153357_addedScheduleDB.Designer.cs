@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningUniversityApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20260422221442_addedTeacherDB")]
-    partial class addedTeacherDB
+    [Migration("20260425153357_addedScheduleDB")]
+    partial class addedScheduleDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,11 @@ namespace LearningUniversityApp.Migrations
 
             modelBuilder.Entity("LearningUniversityApp.Models.Group", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -43,6 +46,37 @@ namespace LearningUniversityApp.Migrations
                     b.ToTable("groups");
                 });
 
+            modelBuilder.Entity("LearningUniversityApp.Models.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("schedules");
+                });
+
             modelBuilder.Entity("LearningUniversityApp.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -54,9 +88,8 @@ namespace LearningUniversityApp.Migrations
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
-                    b.Property<string>("GroupId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -71,6 +104,23 @@ namespace LearningUniversityApp.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("students");
+                });
+
+            modelBuilder.Entity("LearningUniversityApp.Models.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("subjects");
                 });
 
             modelBuilder.Entity("LearningUniversityApp.Models.Teacher", b =>
@@ -97,6 +147,33 @@ namespace LearningUniversityApp.Migrations
                     b.ToTable("teachers");
                 });
 
+            modelBuilder.Entity("LearningUniversityApp.Models.Schedule", b =>
+                {
+                    b.HasOne("LearningUniversityApp.Models.Group", "Group")
+                        .WithMany("schedules")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LearningUniversityApp.Models.Subject", "Subject")
+                        .WithMany("Schedules")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LearningUniversityApp.Models.Teacher", "Teacher")
+                        .WithMany("Schedules")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Subject");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("LearningUniversityApp.Models.Student", b =>
                 {
                     b.HasOne("LearningUniversityApp.Models.Group", "Group")
@@ -110,7 +187,19 @@ namespace LearningUniversityApp.Migrations
 
             modelBuilder.Entity("LearningUniversityApp.Models.Group", b =>
                 {
+                    b.Navigation("schedules");
+
                     b.Navigation("students");
+                });
+
+            modelBuilder.Entity("LearningUniversityApp.Models.Subject", b =>
+                {
+                    b.Navigation("Schedules");
+                });
+
+            modelBuilder.Entity("LearningUniversityApp.Models.Teacher", b =>
+                {
+                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }

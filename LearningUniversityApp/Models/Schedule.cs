@@ -26,7 +26,7 @@
             this.Day = days;
             //this.GroupId = groupId; зачем так делать 
             //this.SubjectId = subjectId;
-            //this.TeacherId = teacherId;
+            //TeacherId = teacherId;
         }
 
     }

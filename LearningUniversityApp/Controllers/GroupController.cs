@@ -31,16 +31,14 @@ namespace LearningUniversityApp.Controllers
 
         [HttpPost]
         public IActionResult CreateGroupPost(Models.Group group) {
-            if (string.IsNullOrEmpty(group.Id)) {
-                group.Id = Guid.NewGuid().ToString();
-            }
+            
             _context.groups.Add(group);
             _context.SaveChanges();
             return RedirectToAction("Menu", "Student");
         }
 
         [HttpPost]
-        public IActionResult DeleteGroup(string id)
+        public IActionResult DeleteGroup(int id)
         {
             Models.Group group = _context.groups.FirstOrDefault(s => s.Id == id);
             _context.groups.Remove(group);
@@ -49,7 +47,7 @@ namespace LearningUniversityApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditGroup(string id)
+        public IActionResult EditGroup(int id)
         {
             Models.Group groups = _context.groups.FirstOrDefault(s => s.Id == id);
             return View(groups);

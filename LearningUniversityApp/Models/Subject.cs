@@ -7,17 +7,17 @@
 
         public List<Schedule> Schedules { get; set; }
 
-        public List<SubjectTeacher> Teachers { get; set; }
+        //public List<SubjectTeacher> Teachers { get; set; }
 
         public Subject() {
-            this.Teachers = new List<SubjectTeacher>();
+            //this.Teachers = new List<SubjectTeacher>();
             this.Schedules = new List<Schedule>();
         }
 
         public Subject(string title)
         {
             Title = title;
-            this.Teachers = new List<SubjectTeacher>();
+           // this.Teachers = new List<SubjectTeacher>();
             this.Schedules = new List<Schedule>();
         }
     }

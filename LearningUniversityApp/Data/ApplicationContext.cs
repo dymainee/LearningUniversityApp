@@ -8,6 +8,9 @@ namespace LearningUniversityApp.Data
         public DbSet<Group> groups { get; set; }  
         public DbSet<Subject> subjects { get; set; }
         public DbSet<Teacher> teachers { get; set; }    
+        public DbSet<Schedule> schedules { get; set; }
+
+        //public DbSet<SubjectTeacher> subjectteacher { get; set; }
 
 
         
@@ -15,6 +18,10 @@ namespace LearningUniversityApp.Data
         {
            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Student>().HasKey(s => s.Id);
+
+            modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
+
+            //modelBuilder.Entity<SubjectTeacher>().HasKey(s => s.Id);
 
             modelBuilder.Entity<Subject>().HasKey(s => s.Id);
 
@@ -26,7 +33,14 @@ namespace LearningUniversityApp.Data
                 .HasOne(s => s.Group)
                 .WithMany(s => s.students)
                 .HasForeignKey(s => s.GroupId)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Schedule>()
+                .HasOne(s => s.Group)
+                .WithMany(s => s.schedules)
+                .HasForeignKey(s => s.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
         }
 

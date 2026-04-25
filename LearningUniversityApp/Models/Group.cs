@@ -8,6 +8,8 @@
 
         public List<Student> students { get; set; } 
 
+        public List<Schedule> schedules { get; set; }
+
 
         public Group() {
             this.students = new List<Student>();
