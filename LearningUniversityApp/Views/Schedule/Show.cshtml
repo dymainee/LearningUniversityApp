@@ -1,0 +1,65 @@
+﻿@model List<LearningUniversityApp.Models.Schedule>
+
+<body>
+	<section class="Groups">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="text-center text-uppercase mb-5"> Всі групи </h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 d-flex justify-content-center">
+				<table class="table table-primary ">
+					<thead>
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Group</th>
+							<th scope="col">Teacher</th>
+							<th scope="col">Subject</th>
+							<th scope="col">Day</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (Schedule schedule in Model)
+						{
+							<tr>
+
+								<th scope="row">@schedule.Id</th>
+								<td>@schedule.GroupId</td>
+								<td>@schedule.TeacherId</td>
+								<td>@schedule.SubjectId</td>
+								<td>@schedule.Day</td>
+
+								<td>
+									<div class="d-flex gap-3">
+										<a asp-controller="Schedule" asp-action="Edit" asp-route-id="@schedule.Id"
+										   class="btn btn-primary btn-sm px-5 ">
+											Змінити
+										</a>
+										<form asp-controller="Schedule" asp-action="Delete" asp-route-id="@schedule.Id">
+											<button type="submit" class="btn btn-danger btn-sm px-5">
+												Видалити
+											</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 d-flex align-items-center justify-content-center">
+				<a asp-controller="Schedule" asp-action="Create"
+				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Створити</a>
+				<a asp-controller="Schedule" asp-action="ReturnToMenu"
+				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Вернутись</a>
+			</div>
+		</div>
+	</section>
+
+</body>
+

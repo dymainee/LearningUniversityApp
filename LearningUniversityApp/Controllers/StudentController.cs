@@ -30,7 +30,8 @@ namespace LearningUniversityApp.Controllers
         public IActionResult Create()
         {
             StudentCreateViewModel studentCreateViewModel = new StudentCreateViewModel();
-            studentCreateViewModel.Groups = _context.groups.Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
+            studentCreateViewModel.Groups = _context.groups.Select(g => new 
+            (g.Title, g.Id.ToString())).ToList();
             return View(studentCreateViewModel);
         }
 
