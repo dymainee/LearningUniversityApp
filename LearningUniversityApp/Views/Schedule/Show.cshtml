@@ -17,7 +17,6 @@
 							<th scope="col">Teacher</th>
 							<th scope="col">Subject</th>
 							<th scope="col">Day</th>
-
 						</tr>
 					</thead>
 					<tbody>
@@ -26,9 +25,9 @@
 							<tr>
 
 								<th scope="row">@schedule.Id</th>
-								<td>@schedule.GroupId</td>
-								<td>@schedule.TeacherId</td>
-								<td>@schedule.SubjectId</td>
+								<td>@schedule.Group.Title</td>
+								<td>@schedule.Teacher.Name @schedule.Teacher.Surname</td>
+								<td>@schedule.Subject.Title</td>
 								<td>@schedule.Day</td>
 
 								<td>
