@@ -5,7 +5,7 @@ namespace LearningUniversityApp.ViewModels
 {
     public class ScheduleCreateViewModel
     {
-        //public int Id { get; set; } //?
+        public int Id { get; set; } //?
         public int GroupId { get; set; }
         public int SubjectId { get; set; }
         public int TeacherId { get; set; }

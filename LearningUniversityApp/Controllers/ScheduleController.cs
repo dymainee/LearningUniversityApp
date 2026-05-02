@@ -74,16 +74,18 @@ namespace LearningUniversityApp.Controllers
             model.Teachers = _context.teachers.Select(t => new SelectListItem(t.Surname, t.Id.ToString())).ToList();
             model.Subjects = _context.subjects.Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
             model.Days = selectListItems;
-
+    
             model.TeacherId = schedule.TeacherId;
             model.SubjectId = schedule.SubjectId;
             model.GroupId = schedule.GroupId;
 
+            model.Id = id;
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult EditPost(ScheduleCreateViewModel model) {
+        public IActionResult EditPost(ScheduleCreateViewModel model) 
+        {
             Schedule newschedule = _context.schedules.FirstOrDefault(s => s.Id == model.Id);
             newschedule.TeacherId = model.TeacherId;
             newschedule.SubjectId = model.SubjectId;
@@ -91,7 +93,7 @@ namespace LearningUniversityApp.Controllers
             newschedule.Day = model.Day;
             _context.schedules.Update(newschedule);
             _context.SaveChanges();
-            return View("Show");
+            return RedirectToAction("Show");
         }
 
         [HttpPost]
