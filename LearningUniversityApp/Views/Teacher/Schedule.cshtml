@@ -1,0 +1,50 @@
+﻿@model List<LearningUniversityApp.Models.Teacher>
+<body>
+	<section class="schedule">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="text-center text-uppercase mb-5"> Графік Занять </h2>
+			</div>
+		</div>
+		<div>
+			<div class="row">
+				<div class="col-12 d-flex justify-content-center">
+					<table>
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Ім'я</th>
+								<th scope="col">Призвище</th>
+								<th scope="col">День</th>
+								<th scope="col">Заняття<th>
+								<th scope="col">№Група<th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (Teacher teacher in Model)
+							{
+								<tr>
+									<th scope="row">@teacher.Id</th>
+									<td>@teacher.Name</td>
+									<td>@teacher.Surname</td>
+									@foreach (var s in teacher.Schedules)
+									{
+										<td>@s.Day</td>
+										<td>@s.Subject.Title</td>
+										<td>@s.Group.Title</td>
+									}
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 d-flex align-items-center justify-content-center">
+					<a asp-controller="Subject" asp-action="ReturnToMenu"
+					   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Вернутись</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>

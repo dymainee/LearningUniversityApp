@@ -1,11 +1,12 @@
 ﻿@model LearningUniversityApp.Models.Teacher
 <body>
-	<form asp-controller="Teacher" asp-action="AddTeacherPost" method="post">
+	<form asp-controller="Teacher" asp-action="EditPost" method="post">
+		<input type="hidden" asp-for="Id" />
 
 		<div class="container mt-4">
 			<div class="row">
 				<div class="col-12">
-					<h2 class="text-center text-uppercase mb-5"> Добавит вчителя </h2>
+					<h2 class="text-center text-uppercase mb-5"> Редагувати нову групу </h2>
 				</div>
 			</div>
 		</div>

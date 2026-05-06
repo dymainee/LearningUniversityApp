@@ -41,6 +41,10 @@ namespace LearningUniversityApp.Data
                 .HasForeignKey(s => s.GroupId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Teacher>()
+                .HasMany(s => s.Schedules)
+                .WithOne(s => s.Teacher)
+                .HasForeignKey(s => s.TeacherId);
 
         }
 

@@ -14,53 +14,65 @@ namespace LearningUniversityApp.Controllers
             _context = context;
         }
 
-        public ActionResult ReturnToMenu()
+        public IActionResult ReturnToMenu()
         {
             return RedirectToAction("Menu", "Student");
         }
 
-        public IActionResult ShowTeacher()
+        public IActionResult Show()
         {
             List<Teacher> teachers = _context.teachers.ToList();
             return View(teachers);
         }
 
         [HttpGet]
-        public IActionResult AddTeacher() { 
+        public IActionResult Add() { 
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddTeacherPost(Teacher teacher)
+        public IActionResult AddPost(Teacher teacher)
         {
             _context.Add(teacher);
             _context.SaveChanges();
-            return RedirectToAction("ShowTeacher");
+            return RedirectToAction("Show");
         }
 
         [HttpPost]
-        public IActionResult DeleteTeacher(int id) {
+        public IActionResult Delete(int id) {
             Teacher teacher = _context.teachers.FirstOrDefault(s => s.Id == id);
             _context.Remove(teacher);
             _context.SaveChanges();
-            return RedirectToAction("ShowTeacher");
+            return RedirectToAction("Show");
         }
 
         [HttpGet]
-        public IActionResult EditTeacher(int id) {
+        public IActionResult Edit(int id) {
             Teacher teacher = _context.teachers.FirstOrDefault(s => s.Id == id);
             return View(teacher); 
         }
 
         [HttpPost]
-        public IActionResult EditTeacherPost(Teacher teacher)
+        public IActionResult EditPost(Teacher teacher)
         {
             Teacher updatedTeacher = _context.teachers.FirstOrDefault(s => s.Id == teacher.Id);
             updatedTeacher.Name = teacher.Name;
             updatedTeacher.Surname = teacher.Surname;
             updatedTeacher.DateOfBirth = teacher.DateOfBirth;
             _context.SaveChanges();
-            return RedirectToAction("ShowTeacher");
+            return RedirectToAction("Show");
+        }
+
+        [HttpGet]
+        public IActionResult Schedule(int id) {
+            List<Teacher> teachers = _context.teachers
+                .Include(s => s.Schedules)
+                    .ThenInclude(x => x.Group)
+                .Include(s => s.Schedules)
+                    .ThenInclude(x => x.Subject)
+                .Where(x => x.Id == id)
+                .ToList();
+            return View(teachers);
         }
     }
 }
