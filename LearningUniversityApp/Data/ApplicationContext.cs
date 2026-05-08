@@ -21,7 +21,7 @@ namespace LearningUniversityApp.Data
 
             modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
 
-            //modelBuilder.Entity<SubjectTeacher>().HasKey(s => s.Id);
+            //modelBuilder.Entity<SubjectTeacher>()
 
             modelBuilder.Entity<Subject>().HasKey(s => s.Id);
 
@@ -45,6 +45,12 @@ namespace LearningUniversityApp.Data
                 .HasMany(s => s.Schedules)
                 .WithOne(s => s.Teacher)
                 .HasForeignKey(s => s.TeacherId);
+
+            modelBuilder.Entity<Subject>()
+                .HasMany(s => s.Schedules)
+                .WithOne(s => s.Subject)
+                .HasForeignKey(s => s.SubjectId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
 

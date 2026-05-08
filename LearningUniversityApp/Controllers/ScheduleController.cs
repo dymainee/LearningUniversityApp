@@ -48,16 +48,42 @@ namespace LearningUniversityApp.Controllers
         }
 
         [HttpPost]
+        
         public IActionResult CreatePost(ScheduleCreateViewModel model) {
-            Schedule schedule = new Schedule();
-            schedule.SubjectId = model.SubjectId;
-            schedule.TeacherId = model.TeacherId;
-            schedule.GroupId = model.GroupId;
-            schedule.Day = model.Day;
-            //
-            _context.schedules.Add(schedule);
-            _context.SaveChanges();
-            return RedirectToAction("Show");
+            
+             Schedule schedules = _context.schedules
+            .FirstOrDefault(s => s.TeacherId == model.TeacherId && s.Day == model.Day || s.GroupId == model.GroupId && s.Day == model.Day);
+            if (schedules == null)
+            {
+                Schedule schedule = new Schedule();
+
+                schedule.SubjectId = model.SubjectId;
+                schedule.TeacherId = model.TeacherId;
+                schedule.GroupId = model.GroupId;
+                schedule.Day = model.Day;
+                
+                _context.schedules.Add(schedule);
+                _context.SaveChanges();
+                return RedirectToAction("Show");
+            }
+            else {
+                ModelState.AddModelError("", "Цей викладач вже зайнятий у вибраний день!");//
+                return View("Create");
+            }
+            //modelBuilder.Entity<Schedule>()
+            //.HasIndex(s => new { s.TeacherId, s.Day })
+            //.IsUnique();
+
+            //model.Days = Enum.GetValues<DayList>()
+            //.Select((d, index) => new SelectListItem(d.ToString(), index.ToString()))
+            //.Take(5) // Берем первые 5 дней как в твоем цикле
+            //.ToList();
+
+
+
+
+
+
         }
         [HttpGet]
         public IActionResult Edit(int id) {
