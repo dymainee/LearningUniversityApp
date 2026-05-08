@@ -1,7 +1,8 @@
 ﻿@model LearningUniversityApp.ViewModels.ScheduleCreateViewModel
 <body>
+	<h4>  @ViewData["Error"] </h4>
 	<form asp-controller="Schedule" asp-action="CreatePost" method="post">
-
+		
 		<div class="container mt-4">
 			<div class="row">
 				<div class="col-12">
@@ -11,6 +12,20 @@
 		</div>
 		<div class="row justify-content-center">
 			<div class="col-12 d-flex flex-column align-items-center">
+				<div class="col-12 mb-3">
+					<label>День тижня</label>
+					<select asp-for="Day" asp-items="Model.Days" class="form-control">
+						<option value="">-- Оберіть день --</option>
+					</select>
+				</div>
+
+				<div class="col-12 mb-3">
+					<label>Номер уроку</label>
+					<select asp-for="LessonNumber" asp-items="Model.LessonNumbers" class="form-control">
+						<option value="">-- Оберіть номер уроку --</option>
+					</select>
+				</div>
+
 				<div class="col-12 mb-3">
 					<select asp-for="GroupId" asp-items="Model.Groups" class="form-control">
 						<option value="">-- Оберіть групу --</option>
@@ -28,12 +43,9 @@
 					</select>
 				</div>
 
-				<div class="col-12 mb-3">
-					<label>День тижня</label>
-					<select asp-for="Day" asp-items="Model.Days" class="form-control">
-						<option value="">-- Оберіть день --</option>
-					</select>
-				</div>
+				
+
+				
 				<button type="submit" class="btn btn-success">Відправити</button>
 			</div>
 		</div>

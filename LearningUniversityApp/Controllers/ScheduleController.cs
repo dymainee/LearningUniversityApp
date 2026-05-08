@@ -32,27 +32,33 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Create() 
         {
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            List<SelectListItem> DaySelectListItems = new List<SelectListItem>();
             for (int i = 0; i < 5; i++)
             {
-                SelectListItem selectListItem = new SelectListItem(Enum.GetValues<DayList>()[i].ToString(), i.ToString());
-                selectListItems.Add(selectListItem);
+                SelectListItem DaySelectListItem = new SelectListItem(Enum.GetValues<DayList>()[i].ToString(), i.ToString());
+                DaySelectListItems.Add(DaySelectListItem);
+            }
+
+            List<SelectListItem> LessonNumberSelectListItems = new List<SelectListItem>();
+            for (int i = 1; i <= 7; i++)
+            {
+                SelectListItem LessonNumberSelectListItem = new SelectListItem(i.ToString(), i.ToString());
+                LessonNumberSelectListItems.Add(LessonNumberSelectListItem);
             }
 
             ScheduleCreateViewModel model = new ScheduleCreateViewModel();
             model.Groups = _context.groups.Select(s => new SelectListItem(s.Title, s.Id.ToString())).ToList();
             model.Teachers = _context.teachers.Select(t => new SelectListItem(t.Surname, t.Id.ToString())).ToList();
             model.Subjects = _context.subjects.Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
-            model.Days = selectListItems;
+            model.Days = DaySelectListItems;
+            model.LessonNumbers = LessonNumberSelectListItems;
             return View(model);
         }
 
         [HttpPost]
-        
-        public IActionResult CreatePost(ScheduleCreateViewModel model) {
-            
-             Schedule schedules = _context.schedules
-            .FirstOrDefault(s => s.TeacherId == model.TeacherId && s.Day == model.Day || s.GroupId == model.GroupId && s.Day == model.Day);
+        public IActionResult CreatePost(ScheduleCreateViewModel model) 
+        {
+            Schedule schedules = _context.schedules.FirstOrDefault(s => (s.TeacherId == model.TeacherId && s.Day == model.Day && s.LessonNumber == model.LessonNumber) || (s.GroupId == model.GroupId && s.Day == model.Day && s.LessonNumber == model.LessonNumber));
             if (schedules == null)
             {
                 Schedule schedule = new Schedule();
@@ -61,14 +67,16 @@ namespace LearningUniversityApp.Controllers
                 schedule.TeacherId = model.TeacherId;
                 schedule.GroupId = model.GroupId;
                 schedule.Day = model.Day;
-                
+                schedule.LessonNumber = model.LessonNumber;
+
                 _context.schedules.Add(schedule);
                 _context.SaveChanges();
                 return RedirectToAction("Show");
             }
-            else {
-                ModelState.AddModelError("", "Цей викладач вже зайнятий у вибраний день!");//
-                return View("Create");
+            else
+            {
+                //ViewData["Error"] = "Цей викладач вже зайнятий у вибраний день!";
+                return RedirectToAction("Create");
             }
             //modelBuilder.Entity<Schedule>()
             //.HasIndex(s => new { s.TeacherId, s.Day })
