@@ -21,13 +21,24 @@ namespace LearningUniversityApp.Data
 
             modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
 
-            //modelBuilder.Entity<SubjectTeacher>()
-
             modelBuilder.Entity<Subject>().HasKey(s => s.Id);
 
             modelBuilder.Entity<Teacher>().HasKey(s => s.Id);
 
             modelBuilder.Entity<Group>().HasKey(s => s.Id);
+
+            modelBuilder.Entity<SubjectTeacher>()
+                .HasKey(st => new { st.SubjectID, st.TeacherID });
+
+            modelBuilder.Entity<SubjectTeacher>()
+                .HasOne(st => st.Subject)
+                .WithMany(s => s.SubjectTeachers)
+                .HasForeignKey(st => st.SubjectID);
+
+            modelBuilder.Entity<SubjectTeacher>()
+               .HasOne(st => st.Teacher)
+               .WithMany(t => t.SubjectTeachers)
+               .HasForeignKey(st => st.TeacherID);
 
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Group)

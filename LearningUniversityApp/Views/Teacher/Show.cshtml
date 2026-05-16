@@ -16,18 +16,22 @@
 							<th scope="col">Name</th>
 							<th scope="col">Surname</th>
 							<th scope="col">DateOfBirth</th>
+							<th scope="col">Subjects</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach (Teacher teacher in Model)
 						{
 							<tr>
-
 								<th scope="row">@teacher.Id</th>
 								<td>@teacher.Name</td>
 								<td>@teacher.Surname</td>
 								<td>@teacher.DateOfBirth</td>
-								
+								@foreach (SubjectTeacher subjectTeacher in teacher.SubjectTeachers)
+								{
+									<td>@subjectTeacher.Subject.Title</td>
+								}
+
 								<td>
 									<div class="d-flex gap-3">
 										<a asp-controller="Teacher" asp-action="Schedule" asp-route-id="@teacher.Id"

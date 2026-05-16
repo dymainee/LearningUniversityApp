@@ -21,12 +21,17 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Show()
         {
-            List<Teacher> teachers = _context.teachers.ToList();
+            List<Teacher> teachers = _context.teachers
+                .Include(t=>t.SubjectTeachers)
+                .ThenInclude(st=>st.Subject)
+                .ToList();
             return View(teachers);
         }
 
         [HttpGet]
-        public IActionResult Add() { 
+        public IActionResult Add() {
+            List<Subject> subjects = _context.subjects.ToList();
+
             return View();
         }
 
