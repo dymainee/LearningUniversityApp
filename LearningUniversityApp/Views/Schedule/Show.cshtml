@@ -1,4 +1,4 @@
-﻿@model List<LearningUniversityApp.Models.Schedule>
+﻿@model IEnumerable<IGrouping<DayList, Schedule>>
 
 <body>
 	<section class="Groups">
@@ -21,7 +21,38 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach (Schedule schedule in Model)
+						@foreach (var day in Model)
+						{
+							@foreach (var schedule in day)
+							{
+								<tr>
+									<th scope="row">@schedule.Id</th>
+									<td>@schedule.Group.Title</td>
+									<td>@schedule.Teacher.Name @schedule.Teacher.Surname</td>
+									<td>@schedule.Subject.Title</td>
+									<td>@schedule.Day</td>
+									<td>@schedule.LessonNumber</td>
+
+									<td>
+										<div class="d-flex gap-3">
+											<a asp-controller="Schedule" asp-action="Edit" asp-route-id="@schedule.Id"
+											   class="btn btn-primary btn-sm px-5 ">
+												Змінити
+											</a>
+											<form asp-controller="Schedule" asp-action="Delete" asp-route-id="@schedule.Id">
+												<button type="submit" class="btn btn-danger btn-sm px-5">
+													Видалити
+												</button>
+											</form>
+										</div>
+									</td>
+								</tr>
+							}
+							<tr> <td> </td> </tr>
+						}
+
+
+				@* 		@foreach (Schedule schedule in Model)
 						{
 							<tr>
 
@@ -46,7 +77,7 @@
 									</div>
 								</td>
 							</tr>
-						}
+						} *@
 					</tbody>
 
 				</table>

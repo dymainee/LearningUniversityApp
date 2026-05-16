@@ -22,10 +22,15 @@ namespace LearningUniversityApp.Controllers
 
 
         public IActionResult Show() {
-            List<Schedule> schedules = _context.schedules
+          
+
+
+             IEnumerable<IGrouping<DayList, Schedule>> schedules = _context.schedules
                 .Include(s=>s.Teacher)
                 .Include(s=>s.Subject)
                 .Include(s=>s.Group)
+                .AsEnumerable()
+                .GroupBy(s=>s.Day)
                 .ToList(); 
             return View(schedules);
         }
