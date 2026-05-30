@@ -21,13 +21,13 @@ namespace LearningUniversityApp.Controllers
             return View();
         }
 
-        public IActionResult GetAll()
+        public IActionResult Show()
         {
             List<Student> students = _context.students.ToList();
             return View(students);
         }
 
-        public IActionResult Create()
+        public IActionResult Add()
         {
             StudentCreateViewModel studentCreateViewModel = new StudentCreateViewModel();
             studentCreateViewModel.Groups = _context.groups.Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
@@ -35,7 +35,7 @@ namespace LearningUniversityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePost(StudentCreateViewModel studentCreateViewModel)
+        public IActionResult AddPost(StudentCreateViewModel studentCreateViewModel)
         {
             Student new_student = new Student();
             new_student.Name = studentCreateViewModel.Name;

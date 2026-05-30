@@ -4,7 +4,7 @@
 	<section class="Groups">
 		<div class="row">
 			<div class="col-12">
-				<h2 class="text-center text-uppercase mb-5"> Всі групи </h2>
+				<h2 class="text-center text-uppercase mb-5"> All Groups </h2>
 			</div>
 		</div>
 		<div class="row">
@@ -28,13 +28,13 @@
 								<td>@group.Description</td>
 								<td>
 									<div class="d-flex gap-3">
-										<a asp-controller="Group" asp-action="EditGroup" asp-route-id="@group.Id"
+										<a asp-controller="Group" asp-action="Edit" asp-route-id="@group.Id"
 										   class="btn btn-primary btn-sm px-5 ">
-											Змінити
+											Modify
 										</a>
-										<form asp-controller="Group" asp-action="DeleteGroup" asp-route-id="@group.Id">
+										<form asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id">
 											<button type="submit" class="btn btn-danger btn-sm px-5">
-												Видалити
+												Delete
 											</button>
 										</form>
 									</div>
@@ -48,10 +48,10 @@
 		</div>
 		<div class="row">
 			<div class="col-12 d-flex align-items-center justify-content-center">
-				<a asp-controller="Group" asp-action="CreateGroup"
-				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Створити</a>
+				<a asp-controller="Group" asp-action="Add"
+				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Add a new Group</a>
 				<a asp-controller="Group" asp-action="ReturnToMenu"
-				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Вернутись</a>
+				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Return back</a>
 			</div>
 		</div>
 	</section>

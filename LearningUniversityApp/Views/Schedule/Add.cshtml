@@ -1,52 +1,54 @@
 ﻿@model LearningUniversityApp.ViewModels.ScheduleCreateViewModel
 <body>
 	<h4>  @ViewData["Error"] </h4>
-	<form asp-controller="Schedule" asp-action="CreatePost" method="post">
+	<form asp-controller="Schedule" asp-action="AddPost" method="post">
 		
 		<div class="container mt-4">
 			<div class="row">
 				<div class="col-12">
-					<h2 class="text-center text-uppercase mb-5"> Створити нову групу </h2>
+					<h2 class="text-center text-uppercase mb-5"> Add a new schedule </h2>
 				</div>
 			</div>
 		</div>
 		<div class="row justify-content-center">
 			<div class="col-12 d-flex flex-column align-items-center">
 				<div class="col-12 mb-3">
-					<label>День тижня</label>
+					<label>Choose a day of the week</label>
 					<select asp-for="Day" asp-items="Model.Days" class="form-control">
-						<option value="">-- Оберіть день --</option>
+						<option value="">-- Day of the week --</option>
 					</select>
 				</div>
 
 				<div class="col-12 mb-3">
-					<label>Номер уроку</label>
+					<label>Lesson number</label>
 					<select asp-for="LessonNumber" asp-items="Model.LessonNumbers" class="form-control">
-						<option value="">-- Оберіть номер уроку --</option>
+						<option value="">-- Choose a lesson number --</option>
 					</select>
 				</div>
 
 				<div class="col-12 mb-3">
+					<label>Groups Id</label>
 					<select asp-for="GroupId" asp-items="Model.Groups" class="form-control">
-						<option value="">-- Оберіть групу --</option>
+						<option value="">-- Choose a group --</option>
 					</select>
 				</div>
 				<div class="col-12 mb-3">
+					<label>Tutors</label>
 					<select asp-for="TeacherId" asp-items="Model.Teachers" class="form-control">
-						<option value="">-- Оберіть вчителя --</option>
+						<option value="">-- Choose a tutor --</option>
 					</select>
 				</div>
 				<div class="col-12 mb-3">
-					<label>Предмет</label>
+					<label>Subjects</label>
 					<select asp-for="SubjectId" asp-items="Model.Subjects" class="form-control">
-						<option value="">-- Оберіть предмет --</option>
+						<option value="">-- Choose subject --</option>
 					</select>
 				</div>
 
 				
 
 				
-				<button type="submit" class="btn btn-success">Відправити</button>
+				<button type="submit" class="btn btn-success">Submit</button>
 			</div>
 		</div>
 	</form>

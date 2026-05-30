@@ -1,5 +1,5 @@
 ﻿@model List<LearningUniversityApp.Models.Student>
-<a asp-controller="Student" asp-action="Create">Створити</a>
+<a asp-controller="Student" asp-action="Add">Add new student</a>
 <table>
     <thead>
         <tr>
@@ -19,7 +19,7 @@
                 <td>@student.Surname</td>
                 <td>@student.DateOfBirth</td>
                 <td>
-                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Змінити</a>
+                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Modify</a>
                 </td>
                 <td>
                     <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Delete </a>

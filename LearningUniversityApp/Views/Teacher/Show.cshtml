@@ -1,10 +1,10 @@
 ﻿@model List<LearningUniversityApp.Models.Teacher>
 
 <body>
-	<section class="Groups">
+	<section class="Teachers">
 		<div class="row">
 			<div class="col-12">
-				<h2 class="text-center text-uppercase mb-5"> Всі групи </h2>
+				<h2 class="text-center text-uppercase mb-5"> All tutors </h2>
 			</div>
 		</div>
 		<div class="row">
@@ -27,24 +27,30 @@
 								<td>@teacher.Name</td>
 								<td>@teacher.Surname</td>
 								<td>@teacher.DateOfBirth</td>
+								<td>
 								@foreach (SubjectTeacher subjectTeacher in teacher.SubjectTeachers)
 								{
-									<td>@subjectTeacher.Subject.Title</td>
+									@subjectTeacher.Subject.Title
+									@if (subjectTeacher != teacher.SubjectTeachers.Last())
+									{
+										<span>, </span>
+									}
 								}
+								</td>
 
 								<td>
 									<div class="d-flex gap-3">
 										<a asp-controller="Teacher" asp-action="Schedule" asp-route-id="@teacher.Id"
 										   class="btn btn-primary btn-sm px-5 ">
-											Графік
+											Schedule
 										</a>
 										<a asp-controller="Teacher" asp-action="Edit" asp-route-id="@teacher.Id"
 										   class="btn btn-primary btn-sm px-5 ">
-											Змінити
+											Modify
 										</a>
 										<form asp-controller="Teacher" asp-action="Delete" asp-route-id="@teacher.Id">
 											<button type="submit" class="btn btn-danger btn-sm px-5">
-												Видалити
+												Delete
 											</button>
 										</form>
 									</div>
@@ -59,9 +65,9 @@
 		<div class="row">
 			<div class="col-12 d-flex align-items-center justify-content-center">
 				<a asp-controller="Teacher" asp-action="Add"
-				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Створити</a>
+				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Add</a>
 				<a asp-controller="Teacher" asp-action="ReturnToMenu"
-				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Вернутись</a>
+				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Return back</a>
 			</div>
 		</div>
 	</section>

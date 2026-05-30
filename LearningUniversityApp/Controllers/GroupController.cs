@@ -17,20 +17,20 @@ namespace LearningUniversityApp.Controllers
             return RedirectToAction("Menu", "Student");
         }
 
-        public IActionResult GetAllGroups() {
+        public IActionResult Show() {
             List<Models.Group> groups = _context.groups.ToList();
 
             return View(groups);
         }
 
         [HttpGet]
-        public IActionResult CreateGroup()
+        public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateGroupPost(Models.Group group) {
+        public IActionResult AddPost(Models.Group group) {
             
             _context.groups.Add(group);
             _context.SaveChanges();
@@ -38,7 +38,7 @@ namespace LearningUniversityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteGroup(int id)
+        public IActionResult Delete(int id)
         {
             Models.Group group = _context.groups.FirstOrDefault(s => s.Id == id);
             _context.groups.Remove(group);
@@ -47,14 +47,14 @@ namespace LearningUniversityApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditGroup(int id)
+        public IActionResult Edit(int id)
         {
             Models.Group groups = _context.groups.FirstOrDefault(s => s.Id == id);
             return View(groups);
         }
 
         [HttpPost]
-        public IActionResult EditGroupPost(Models.Group groups) {
+        public IActionResult EditPost(Models.Group groups) {
             Models.Group NewGroup = _context.groups.FirstOrDefault(s => s.Id == groups.Id);
             NewGroup.Title = groups.Title;
             NewGroup.Description = groups.Description;

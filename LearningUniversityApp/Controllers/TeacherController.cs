@@ -1,5 +1,6 @@
 ﻿using LearningUniversityApp.Data;
 using LearningUniversityApp.Models;
+using LearningUniversityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,16 +31,29 @@ namespace LearningUniversityApp.Controllers
 
         [HttpGet]
         public IActionResult Add() {
-            List<Subject> subjects = _context.subjects.ToList();
-
-            return View();
+            TeacherCreateViewModel teacherCreateViewModel = new TeacherCreateViewModel();
+            teacherCreateViewModel.subjects = _context.subjects.ToList();
+            return View(teacherCreateViewModel);
         }
 
         [HttpPost]
-        public IActionResult AddPost(Teacher teacher)
-        {
+        public IActionResult AddPost(Teacher teacher, List<int> SelectedSubjectIds)
+        { 
             _context.Add(teacher);
             _context.SaveChanges();
+            if (!SelectedSubjectIds.Equals(null)) {
+                foreach (var subjectId in SelectedSubjectIds) { 
+                    SubjectTeacher subjectTeacher = new SubjectTeacher();
+                    subjectTeacher.TeacherID = teacher.Id;
+                    subjectTeacher.SubjectID = subjectId;
+                    _context.Add(subjectTeacher);
+
+
+                }
+
+                _context.SaveChanges();
+            }
+
             return RedirectToAction("Show");
         }
 

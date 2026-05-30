@@ -35,7 +35,7 @@ namespace LearningUniversityApp.Controllers
             return View(schedules);
         }
 
-        public IActionResult Create() 
+        public IActionResult Add() 
         {
             List<SelectListItem> DaySelectListItems = new List<SelectListItem>();
             for (int i = 0; i < 5; i++)
@@ -61,7 +61,7 @@ namespace LearningUniversityApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePost(ScheduleCreateViewModel model) 
+        public IActionResult AddPost(ScheduleCreateViewModel model) 
         {
             Schedule schedules = _context.schedules.FirstOrDefault(s => (s.TeacherId == model.TeacherId && s.Day == model.Day && s.LessonNumber == model.LessonNumber) || (s.GroupId == model.GroupId && s.Day == model.Day && s.LessonNumber == model.LessonNumber));
             if (schedules == null)
