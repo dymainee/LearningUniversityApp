@@ -16,8 +16,8 @@ namespace LearningUniversityApp.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Student>().HasKey(s => s.Id);
+            base.OnModelCreating(modelBuilder);
+        
 
             modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
 
@@ -40,11 +40,7 @@ namespace LearningUniversityApp.Data
                .WithMany(t => t.SubjectTeachers)
                .HasForeignKey(st => st.TeacherID);
 
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.Group)
-                .WithMany(s => s.students)
-                .HasForeignKey(s => s.GroupId)
-                .OnDelete(DeleteBehavior.Cascade);
+          
 
             modelBuilder.Entity<Schedule>()
                 .HasOne(s => s.Group)
