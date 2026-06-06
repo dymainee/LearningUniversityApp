@@ -18,7 +18,7 @@ namespace LearningUniversityApp.Controllers
         }
 
         public IActionResult Show() {
-            List<Models.Group> groups = _context.groups.ToList();
+            List<Models.Group> groups = _context.groups.OrderBy(g => g.Title).ToList();
 
             return View(groups);
         }
