@@ -4,7 +4,7 @@ namespace LearningUniversityApp.Models
 {
     public class Student
     {
-        public int Id { get; }
+        public int Id { get;}
         public string Name { get; set; } = "";
         public string Surname { get; set; } = "";
         public DateOnly DateOfBirth { get; set; }
