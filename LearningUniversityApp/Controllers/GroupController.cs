@@ -17,10 +17,16 @@ namespace LearningUniversityApp.Controllers
             return RedirectToAction("Menu", "Student");
         }
 
-        public IActionResult Show() {
-            List<Models.Group> groups = _context.groups.OrderBy(g => g.Title).ToList();
+        public IActionResult Show(int? id_filter, string title_filter, string description_filter) 
+        {
+            var groups = _context.groups.OrderBy(g => g.Title).AsQueryable();
 
-            return View(groups);
+            if (id_filter.HasValue)
+            {
+                groups = groups.Where(g => g.Id == id_filter);
+            }
+         
+            return View(groups.ToList());
         }
 
         [HttpGet]

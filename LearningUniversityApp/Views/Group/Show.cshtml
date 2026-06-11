@@ -9,41 +9,49 @@
 		</div>
 		<div class="row">
 			<div class="col-12 d-flex justify-content-center">
-				<table class="table table-primary ">
-					<thead>
-						<tr>
-							<th scope="col">Id</th>
-							<th scope="col">Title</th>
-							<th scope="col">Description</th>
-							<th scope="col">Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (Group group in Model)
-						{
+				<form asp-controller="Group" asp-action="Show">
+					<table class="table table-primary">
+						<thead>
 							<tr>
-
-								<th scope="row">@group.Id</th>
-								<td>@group.Title</td>
-								<td>@group.Description</td>
-								<td>
-									<div class="d-flex gap-3">
-										<a asp-controller="Group" asp-action="Edit" asp-route-id="@group.Id"
-										   class="btn btn-primary btn-sm px-5 ">
-											Modify
-										</a>
-										<form asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id">
-											<button type="submit" class="btn btn-danger btn-sm px-5">
-												Delete
-											</button>
-										</form>
-									</div>
-								</td>
+								<input name="id_filter" type="number">
+								<input name="title_filter" type="text">
+								<input name="description_filter" type="text">
+								<button type="submit">Застосувати</button>
 							</tr>
-						}
-					</tbody>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Title</th>
+								<th scope="col">Description</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (Group group in Model)
+							{
+								<tr>
 
-				</table>
+									<th scope="row">@group.Id</th>
+									<td>@group.Title</td>
+									<td>@group.Description</td>
+									<td>
+										<div class="d-flex gap-3">
+											<a asp-controller="Group" asp-action="Edit" asp-route-id="@group.Id"
+											   class="btn btn-primary btn-sm px-5 ">
+												Modify
+											</a>
+											<form asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id">
+												<button type="submit" class="btn btn-danger btn-sm px-5">
+													Delete
+												</button>
+											</form>
+										</div>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+					
+				</form>
 			</div>
 		</div>
 		<div class="row">
