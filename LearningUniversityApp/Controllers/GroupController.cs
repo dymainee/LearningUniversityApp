@@ -1,5 +1,6 @@
 ﻿using LearningUniversityApp.Data;
 using LearningUniversityApp.Models;
+using LearningUniversityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 
@@ -17,16 +18,16 @@ namespace LearningUniversityApp.Controllers
             return RedirectToAction("Menu", "Student");
         }
 
-        public IActionResult Show(int? id_filter, string title_filter, string description_filter) 
+        public IActionResult Show(GroupFilterViewModel groupFilterViewModel) 
         {
             var groups = _context.groups.OrderBy(g => g.Title).AsQueryable();
 
-            if (id_filter.HasValue)
+            if (groupFilterViewModel.id_filter.HasValue)
             {
-                groups = groups.Where(g => g.Id == id_filter);
+                groups = groups.Where(g => g.Id == groupFilterViewModel.id_filter);
             }
-         
-            return View(groups.ToList());
+            groupFilterViewModel.groups = groups.ToList(); 
+            return View(groupFilterViewModel);
         }
 
         [HttpGet]

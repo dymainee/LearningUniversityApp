@@ -1,5 +1,5 @@
-﻿@model List<LearningUniversityApp.Models.Group>
-
+﻿@using LearningUniversityApp.ViewModels
+@model GroupFilterViewModel
 <body>
 	<section class="Groups">
 		<div class="row">
@@ -26,10 +26,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach (Group group in Model)
+							@foreach (Group group in Model.groups)
 							{
 								<tr>
-
 									<th scope="row">@group.Id</th>
 									<td>@group.Title</td>
 									<td>@group.Description</td>
