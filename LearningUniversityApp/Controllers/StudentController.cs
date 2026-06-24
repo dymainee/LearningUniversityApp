@@ -21,10 +21,16 @@ namespace LearningUniversityApp.Controllers
             return View();
         }
 
-        public IActionResult Show()
+        public IActionResult Show(StudentFilterViewModel studentFilterViewModel)
         {
-            List<Student> students = _context.students.ToList();
-            return View(students);
+            var students = _context.students.OrderBy(g => g.Name).AsQueryable();
+
+            if (studentFilterViewModel.id_filter.HasValue)
+            {
+                students = students.Where(g => g.Id == studentFilterViewModel.id_filter);
+            }
+            studentFilterViewModel.students = students.ToList();
+            return View(studentFilterViewModel);
         }
 
         public IActionResult Add()

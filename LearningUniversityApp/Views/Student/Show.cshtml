@@ -1,7 +1,13 @@
-﻿@model List<LearningUniversityApp.Models.Student>
+﻿@using LearningUniversityApp.ViewModels
+@model StudentFilterViewModel
 <a asp-controller="Student" asp-action="Add">Add new student</a>
 <table>
     <thead>
+        <tr>
+            <input name="id_filter" type="number">
+            <input name="title_filter" type="text">
+            <input name="description_filter" type="text">
+        </tr>
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -11,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Student student in Model)
+        @foreach (Student student in Model.students)
         {
             <tr>
                 <td>@student.Id</td>
