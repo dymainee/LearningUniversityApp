@@ -26,6 +26,18 @@ namespace LearningUniversityApp.Controllers
             {
                 groups = groups.Where(g => g.Id == groupFilterViewModel.id_filter);
             }
+            
+            switch (groupFilterViewModel.sortField)
+            {
+                case "Id":
+                    groups = groupFilterViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Id) : groups.OrderBy(g => g.Id);
+                    break;
+
+                case "Title":
+                    groups = groupFilterViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Id) : groups.OrderBy(g => g.Id);
+                    break;
+            }
+
             groupFilterViewModel.groups = groups.ToList(); 
             return View(groupFilterViewModel);
         }

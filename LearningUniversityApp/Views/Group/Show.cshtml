@@ -19,8 +19,12 @@
 								<button type="submit">Застосувати</button>
 							</tr>
 							<tr>
-								<th scope="col">Id</th>
-								<th scope="col">Title</th>
+								<th scope="col">
+									<a asp-action="Show" asp-route-sortField="Id" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Id</a>
+								</th>
+								<th scope="col">
+									<a asp-action="Show" asp-route-sortField="Title" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending  ? SortOrder.Descending : SortOrder.Ascending)">Title</a>
+								</th>
 								<th scope="col">Description</th>
 								<th scope="col">Actions</th>
 							</tr>
