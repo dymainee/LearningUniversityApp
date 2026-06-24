@@ -18,7 +18,7 @@ namespace LearningUniversityApp.Controllers
             return RedirectToAction("Menu", "Student");
         }
 
-        public IActionResult Show(GroupFilterViewModel groupFilterViewModel) 
+        public IActionResult Show(GroupComplexViewModel groupFilterViewModel) 
         {
             var groups = _context.groups.OrderBy(g => g.Title).AsQueryable();
 
