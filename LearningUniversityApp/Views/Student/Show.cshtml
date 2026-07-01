@@ -9,8 +9,12 @@
             <input name="description_filter" type="text">
         </tr>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
+            <th scope="col">
+                <a asp-action="Show" asp-route-sortField="Id" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Id</a>
+            </th>
+            <th scope="col">
+                <a asp-action="Show" asp-route-sortField="Name" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Name</a>
+            </th>
             <th>Surname</th>
             <th>Age</th>
             <th>Date of birth</th>

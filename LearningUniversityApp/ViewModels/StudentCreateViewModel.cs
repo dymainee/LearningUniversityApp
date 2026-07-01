@@ -2,7 +2,7 @@
 
 namespace LearningUniversityApp.ViewModels
 {
-    public class StudentCreateViewModel
+    public class StudentCreateViewModel 
     {
         public string Name { get; set; } = "";
         public string Surname { get; set; } = "";

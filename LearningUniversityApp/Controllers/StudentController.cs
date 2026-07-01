@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using LearningUniversityApp.Data;
+﻿using LearningUniversityApp.Data;
 using LearningUniversityApp.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using LearningUniversityApp.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.RegularExpressions;
 
 namespace LearningUniversityApp.Controllers
 {
@@ -29,6 +30,20 @@ namespace LearningUniversityApp.Controllers
             {
                 students = students.Where(g => g.Id == studentFilterViewModel.id_filter);
             }
+
+            switch (studentFilterViewModel.sortField)
+            {
+                case "Id":
+                    students = studentFilterViewModel.sortOrder == SortOrder.Descending ? students.OrderByDescending(g => g.Id) : students.OrderBy(g => g.Id);
+                    break;
+
+                case "Name":
+                    students = studentFilterViewModel.sortOrder == SortOrder.Descending ? students.OrderByDescending(g => g.Id) : students.OrderBy(g => g.Id);
+                    break;
+            }
+
+
+
             studentFilterViewModel.students = students.ToList();
             return View(studentFilterViewModel);
         }
@@ -50,7 +65,7 @@ namespace LearningUniversityApp.Controllers
             new_student.GroupId = studentCreateViewModel.GroupId;
             _context.students.Add(new_student);
             _context.SaveChanges();
-            return RedirectToAction("GetAll");
+            return RedirectToAction("Show");
         }
 
         public IActionResult Edit(int id)
@@ -68,14 +83,14 @@ namespace LearningUniversityApp.Controllers
             existed_student.DateOfBirth = student.DateOfBirth;
 
             _context.SaveChanges();
-            return RedirectToAction("GetAll");
+            return RedirectToAction("Show");
         }
 
         public IActionResult Delete(int id) {
             Student student = _context.students.First(s => s.Id == id);
             _context.students.Remove(student);
             _context.SaveChanges(); 
-            return RedirectToAction("GetAll");
+            return RedirectToAction("Show");
         }
     
     }

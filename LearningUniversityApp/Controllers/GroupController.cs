@@ -62,7 +62,7 @@ namespace LearningUniversityApp.Controllers
             Models.Group group = _context.groups.FirstOrDefault(s => s.Id == id);
             _context.groups.Remove(group);
             _context.SaveChanges();
-            return RedirectToAction("GetAllGroups");
+            return RedirectToAction("Show");
         }
 
         [HttpGet]
@@ -79,7 +79,7 @@ namespace LearningUniversityApp.Controllers
             NewGroup.Description = groups.Description;
             _context.groups.Update(NewGroup);
             _context.SaveChanges();
-            return RedirectToAction("GetAllGroups");
+            return RedirectToAction("Show");
 
         }
 
