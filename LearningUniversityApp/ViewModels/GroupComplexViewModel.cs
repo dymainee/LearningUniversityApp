@@ -2,7 +2,7 @@
 
 namespace LearningUniversityApp.ViewModels
 {
-    public class GroupComplexViewModel : SortViewModel
+    public class GroupComplexViewModel : UniversalViewModel
     {
         public int? id_filter { get; set; }
         public string title_filter { get; set; }

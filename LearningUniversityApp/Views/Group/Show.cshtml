@@ -68,3 +68,11 @@
 	</section>
 
 </body>
+
+@{
+	int totalPages = (int)Math.Ceiling((double)Model.TotalCount / Model.PageSize);
+}
+@for (int page_n = 1; page_n <= totalPages; page_n++)
+{
+	<a asp-action="Show" asp-route-PageNumber="@page_n" asp-route-sortOrder="@Model.sortOrder" asp-route-sortField="@Model.sortField" asp-route-id_filter="@Model.id_filter">@page_n</a>
+}

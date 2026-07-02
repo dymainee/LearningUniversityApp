@@ -18,28 +18,35 @@ namespace LearningUniversityApp.Controllers
             return RedirectToAction("Menu", "Student");
         }
 
-        public IActionResult Show(GroupComplexViewModel groupFilterViewModel) 
+        public IActionResult Show(GroupComplexViewModel groupViewModel) 
         {
             var groups = _context.groups.OrderBy(g => g.Title).AsQueryable();
 
-            if (groupFilterViewModel.id_filter.HasValue)
+            if (groupViewModel.id_filter.HasValue)
             {
-                groups = groups.Where(g => g.Id == groupFilterViewModel.id_filter);
+                groups = groups.Where(g => g.Id == groupViewModel.id_filter);
             }
             
-            switch (groupFilterViewModel.sortField)
+            switch (groupViewModel.sortField)
             {
                 case "Id":
-                    groups = groupFilterViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Id) : groups.OrderBy(g => g.Id);
+                    groups = groupViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Id) : groups.OrderBy(g => g.Id);
                     break;
 
                 case "Title":
-                    groups = groupFilterViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Id) : groups.OrderBy(g => g.Id);
+                    groups = groupViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Id) : groups.OrderBy(g => g.Id);
                     break;
             }
 
-            groupFilterViewModel.groups = groups.ToList(); 
-            return View(groupFilterViewModel);
+            groupViewModel.TotalCount = groups.Count();
+
+            groupViewModel.groups = groups.Skip((groupViewModel.PageNumber - 1) * groupViewModel.PageSize)
+                                          .Take(groupViewModel.PageSize)
+                                          .ToList();
+
+          
+          
+            return View(groupViewModel);
         }
 
         [HttpGet]

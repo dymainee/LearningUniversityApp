@@ -2,7 +2,7 @@
 
 namespace LearningUniversityApp.ViewModels
 {
-    public class StudentFilterViewModel : SortViewModel
+    public class StudentFilterViewModel : UniversalViewModel
     {
         public int? id_filter { get; set; }
         public string name_filter { get; set; }
