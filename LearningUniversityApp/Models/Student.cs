@@ -13,11 +13,12 @@ namespace LearningUniversityApp.Models
 
         public Group Group { get; set; } // navigation property
         public Student(){}
-        public Student(int id, string name,string surname, int age, DateOnly dateofbirth) {
-            this.Id = id;
+        public Student(string name, string surname, DateOnly dateofbirth, int groupId)
+        {
             this.Name = name;
             this.Surname = surname;
             this.DateOfBirth = dateofbirth;
+            this.GroupId = groupId;
         }
     }
 }

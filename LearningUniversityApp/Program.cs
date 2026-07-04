@@ -1,11 +1,13 @@
 using LearningUniversityApp.Data;
 using LearningUniversityApp.Models;
+using LearningUniversityApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<StudentService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

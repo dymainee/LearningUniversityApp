@@ -1,5 +1,6 @@
 ﻿using LearningUniversityApp.Data;
 using LearningUniversityApp.Models;
+using LearningUniversityApp.Services;
 using LearningUniversityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,10 +11,12 @@ namespace LearningUniversityApp.Controllers
     public class StudentController : Controller
     {
         private ApplicationContext _context;
+        private StudentService _studentService;
 
-        public StudentController(ApplicationContext context)
+        public StudentController(ApplicationContext context, StudentService studentService)
         {
-            this._context = context;
+            _context = context;
+            _studentService = studentService;
         }
 
 
@@ -24,7 +27,8 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Show(StudentFilterViewModel studentFilterViewModel)
         {
-            var students = _context.students.OrderBy(g => g.Name).AsQueryable();
+            Console.WriteLine("Викликано сервіс");
+            var students = _studentService.GetAll().OrderBy(g => g.Name).AsQueryable();
 
             if (studentFilterViewModel.id_filter.HasValue)
             {
@@ -58,13 +62,8 @@ namespace LearningUniversityApp.Controllers
         [HttpPost]
         public IActionResult AddPost(StudentCreateViewModel studentCreateViewModel)
         {
-            Student new_student = new Student();
-            new_student.Name = studentCreateViewModel.Name;
-            new_student.Surname = studentCreateViewModel.Surname;
-            new_student.DateOfBirth = studentCreateViewModel.DateOfBirth;
-            new_student.GroupId = studentCreateViewModel.GroupId;
-            _context.students.Add(new_student);
-            _context.SaveChanges();
+            _studentService.Create(studentCreateViewModel.Name, studentCreateViewModel.Surname, studentCreateViewModel.DateOfBirth, studentCreateViewModel.GroupId);
+            // Студента створено
             return RedirectToAction("Show");
         }
 
@@ -77,7 +76,7 @@ namespace LearningUniversityApp.Controllers
         [HttpPost]
         public IActionResult EditPost(Student student)
         {
-            Student existed_student = _context.students.First(s => s.Name == student.Name);
+            Student existed_student = _studentService.GetAll().First(s => s.Name == student.Name);
             existed_student.Name = student.Name;
             existed_student.Surname = student.Surname;
             existed_student.DateOfBirth = student.DateOfBirth;
