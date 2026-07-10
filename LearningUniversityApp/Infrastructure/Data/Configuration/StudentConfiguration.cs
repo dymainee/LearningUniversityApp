@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LearningUniversityApp.Data.Configuration
+namespace LearningUniversityApp.Infrastructure.Data.Configuration
 {
     public class StudentConfiguration : IEntityTypeConfiguration<Student>
     {

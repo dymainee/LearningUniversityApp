@@ -1,7 +1,7 @@
 ﻿using LearningUniversityApp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningUniversityApp.Interfaces
+namespace LearningUniversityApp.Application.Interfaces
 {
     public interface IStudentService
     {

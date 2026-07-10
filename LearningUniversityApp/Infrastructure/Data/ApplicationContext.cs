@@ -1,7 +1,7 @@
-﻿using LearningUniversityApp.Data.Configuration;
+﻿using LearningUniversityApp.Infrastructure.Data.Configuration;
 using LearningUniversityApp.Models;
 using Microsoft.EntityFrameworkCore;
-namespace LearningUniversityApp.Data
+namespace LearningUniversityApp.Infrastructure.Data
 {
     public class ApplicationContext : DbContext
     {

@@ -1,33 +1,35 @@
-﻿using LearningUniversityApp.Data;
-using LearningUniversityApp.Interfaces;
+﻿using LearningUniversityApp.Application.Interfaces;
+using LearningUniversityApp.Infrastructure.Data;
+using LearningUniversityApp.Infrastructure.Interfaces;
 using LearningUniversityApp.Models;
 
-namespace LearningUniversityApp.Services
+namespace LearningUniversityApp.Application.Services
 {
     public class StudentService : IStudentService
     {
-        private ApplicationContext _context;
+        private readonly IStudentRepository _studentRepository;
+        private readonly ApplicationContext _context;
 
-        public StudentService(ApplicationContext context)
+        public StudentService(IStudentRepository studentRepository, ApplicationContext context)
         {
+            _studentRepository = studentRepository;
             _context = context;
         }
 
         public Student GetById(int id)
         {
-            return _context.students.First(s => s.Id == id);
+            return _studentRepository.GetById(id);
         }
 
         public List<Student> GetAll()
         {
-            return _context.students.ToList();
+            return _studentRepository.GetAll();
         }
 
         public void Create(string name, string surname, DateOnly dateofbirth, int groupId)
         {
             Student new_student = new Student(name, surname, dateofbirth, groupId);
-            _context.students.Add(new_student);
-            _context.SaveChanges();
+            _studentRepository.Create(new_student);
         }
 
         public void Edit(Student student)

@@ -1,4 +1,4 @@
-﻿using LearningUniversityApp.Data;
+﻿using LearningUniversityApp.Infrastructure.Data;
 using LearningUniversityApp.Models;
 using LearningUniversityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;

@@ -1,7 +1,9 @@
-using LearningUniversityApp.Data;
-using LearningUniversityApp.Interfaces;
+using LearningUniversityApp.Application.Interfaces;
+using LearningUniversityApp.Application.Services;
+using LearningUniversityApp.Infrastructure.Data;
+using LearningUniversityApp.Infrastructure.Interfaces;
+using LearningUniversityApp.Infrastructure.Repositories;
 using LearningUniversityApp.Models;
-using LearningUniversityApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IStudentService, StudentService>();
-
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

@@ -1,7 +1,6 @@
-﻿using LearningUniversityApp.Data;
-using LearningUniversityApp.Interfaces;
+﻿using LearningUniversityApp.Application.Interfaces;
+using LearningUniversityApp.Infrastructure.Data;
 using LearningUniversityApp.Models;
-using LearningUniversityApp.Services;
 using LearningUniversityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
