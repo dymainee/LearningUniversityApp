@@ -13,6 +13,11 @@ namespace LearningUniversityApp.Services
             _context = context;
         }
 
+        public Student GetById(int id)
+        {
+            return _context.students.First(s => s.Id == id);
+        }
+
         public List<Student> GetAll()
         {
             return _context.students.ToList();
@@ -25,14 +30,21 @@ namespace LearningUniversityApp.Services
             _context.SaveChanges();
         }
 
-        //public Student Edit()
-        //{
-        //    return new Student();
-        //}
+        public void Edit(Student student)
+        {
+            Student existed_student = GetAll().First(s => s.Name == student.Name);
+            existed_student.Name = student.Name;
+            existed_student.Surname = student.Surname;
+            existed_student.DateOfBirth = student.DateOfBirth;
 
-        //public Student Delete()
-        //{
-        //    return new Student();
-        //}
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            Student student = GetById(id);
+            _context.students.Remove(student);
+            _context.SaveChanges();
+        }
     }
 }

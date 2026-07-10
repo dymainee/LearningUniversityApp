@@ -12,14 +12,13 @@ namespace LearningUniversityApp.Controllers
     public class StudentController : Controller
     {
         private ApplicationContext _context;
-        private IStudentService _studentService;
+        private readonly IStudentService _studentService;
 
         public StudentController(ApplicationContext context, IStudentService studentService)
         {
             _context = context;
             _studentService = studentService;
         }
-
 
         public IActionResult Menu()
         {
@@ -47,8 +46,6 @@ namespace LearningUniversityApp.Controllers
                     break;
             }
 
-
-
             studentFilterViewModel.students = students.ToList();
             return View(studentFilterViewModel);
         }
@@ -70,28 +67,22 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            Student student = _context.students.First(s => s.Id == id);
+            Student student = _studentService.GetById(id);
             return View(student);
         }
 
         [HttpPost]
         public IActionResult EditPost(Student student)
         {
-            Student existed_student = _studentService.GetAll().First(s => s.Name == student.Name);
-            existed_student.Name = student.Name;
-            existed_student.Surname = student.Surname;
-            existed_student.DateOfBirth = student.DateOfBirth;
-
-            _context.SaveChanges();
+            _studentService.Edit(student);
             return RedirectToAction("Show");
         }
 
         public IActionResult Delete(int id) {
-            Student student = _context.students.First(s => s.Id == id);
-            _context.students.Remove(student);
-            _context.SaveChanges(); 
+           
+            _studentService.Delete(id);
+
             return RedirectToAction("Show");
         }
-    
     }
 }
