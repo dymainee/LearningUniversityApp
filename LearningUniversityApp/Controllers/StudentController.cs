@@ -1,4 +1,5 @@
 ﻿using LearningUniversityApp.Data;
+using LearningUniversityApp.Interfaces;
 using LearningUniversityApp.Models;
 using LearningUniversityApp.Services;
 using LearningUniversityApp.ViewModels;
@@ -11,9 +12,9 @@ namespace LearningUniversityApp.Controllers
     public class StudentController : Controller
     {
         private ApplicationContext _context;
-        private StudentService _studentService;
+        private IStudentService _studentService;
 
-        public StudentController(ApplicationContext context, StudentService studentService)
+        public StudentController(ApplicationContext context, IStudentService studentService)
         {
             _context = context;
             _studentService = studentService;

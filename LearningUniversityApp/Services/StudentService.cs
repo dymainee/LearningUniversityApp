@@ -1,9 +1,10 @@
 ﻿using LearningUniversityApp.Data;
+using LearningUniversityApp.Interfaces;
 using LearningUniversityApp.Models;
 
 namespace LearningUniversityApp.Services
 {
-    public class StudentService
+    public class StudentService : IStudentService
     {
         private ApplicationContext _context;
 
