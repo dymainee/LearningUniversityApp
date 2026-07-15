@@ -1,4 +1,6 @@
-﻿using LearningUniversityApp.Infrastructure.Data;
+﻿using LearningUniversityApp.Application.Interfaces;
+using LearningUniversityApp.Application.Services;
+using LearningUniversityApp.Infrastructure.Data;
 using LearningUniversityApp.Models;
 using LearningUniversityApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +12,12 @@ namespace LearningUniversityApp.Controllers
     {
 
         private ApplicationContext _context;
-        public GroupController(ApplicationContext context)
+        private readonly IGroupService _groupService;
+
+        public GroupController(ApplicationContext context, IGroupService groupService)
         {
-            this._context = context;
+            _context = context;
+            _groupService = groupService;
         }
         public IActionResult ReturnToMenu() {
             return RedirectToAction("Menu", "Student");
@@ -20,7 +25,7 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Show(GroupComplexViewModel groupViewModel) 
         {
-            var groups = _context.groups.OrderBy(g => g.Title).AsQueryable();
+            var groups = _groupService.GetAll().OrderBy(g => g.Title).AsQueryable();
 
             if (groupViewModel.id_filter.HasValue)
             {
@@ -57,35 +62,28 @@ namespace LearningUniversityApp.Controllers
 
         [HttpPost]
         public IActionResult AddPost(Models.Group group) {
-            
-            _context.groups.Add(group);
-            _context.SaveChanges();
+
+            _groupService.Create(group.Title, group.Description);
             return RedirectToAction("Menu", "Student");
         }
 
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Models.Group group = _context.groups.FirstOrDefault(s => s.Id == id);
-            _context.groups.Remove(group);
-            _context.SaveChanges();
+            _groupService.Delete(id);
             return RedirectToAction("Show");
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Models.Group groups = _context.groups.FirstOrDefault(s => s.Id == id);
+            Models.Group groups = _groupService.GetById(id);
             return View(groups);
         }
 
         [HttpPost]
         public IActionResult EditPost(Models.Group groups) {
-            Models.Group NewGroup = _context.groups.FirstOrDefault(s => s.Id == groups.Id);
-            NewGroup.Title = groups.Title;
-            NewGroup.Description = groups.Description;
-            _context.groups.Update(NewGroup);
-            _context.SaveChanges();
+            _groupService.Edit(groups);
             return RedirectToAction("Show");
 
         }
