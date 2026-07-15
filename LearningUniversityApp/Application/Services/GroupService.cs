@@ -22,9 +22,16 @@ namespace LearningUniversityApp.Application.Services
         {
             return _groupRepository.GetById(id);
         }
-        public List<Models.Group> GetAll()
+        public List<Models.Group> GetAll(int? id_filter = null)
         {
-            return _groupRepository.GetAll();
+            var groups = _groupRepository.GetAll();
+            
+            if (id_filter.HasValue)
+            {
+                groups = groups.Where(g => g.Id == id_filter).ToList();
+            }
+
+            return groups;
         }
 
         public void Create(string Title, string Description)

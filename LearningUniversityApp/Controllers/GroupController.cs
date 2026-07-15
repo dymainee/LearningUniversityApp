@@ -10,7 +10,6 @@ namespace LearningUniversityApp.Controllers
 {
     public class GroupController : Controller
     {
-
         private ApplicationContext _context;
         private readonly IGroupService _groupService;
 
@@ -25,12 +24,7 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Show(GroupComplexViewModel groupViewModel) 
         {
-            var groups = _groupService.GetAll().OrderBy(g => g.Title).AsQueryable();
-
-            if (groupViewModel.id_filter.HasValue)
-            {
-                groups = groups.Where(g => g.Id == groupViewModel.id_filter);
-            }
+            var groups = _groupService.GetAll(groupViewModel.id_filter).OrderBy(g => g.Title).AsQueryable();
             
             switch (groupViewModel.sortField)
             {
@@ -48,7 +42,6 @@ namespace LearningUniversityApp.Controllers
             groupViewModel.groups = groups.Skip((groupViewModel.PageNumber - 1) * groupViewModel.PageSize)
                                           .Take(groupViewModel.PageSize)
                                           .ToList();
-
           
           
             return View(groupViewModel);
