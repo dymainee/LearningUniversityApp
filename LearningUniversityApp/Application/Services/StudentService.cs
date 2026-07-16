@@ -28,6 +28,7 @@ namespace LearningUniversityApp.Application.Services
         {
             Student new_student = new Student(name, surname, dateofbirth, groupId);
             _studentRepository.Create(new_student);
+            _studentRepository.SaveChanges();
         }
 
         public void Edit(Student student)
@@ -43,6 +44,7 @@ namespace LearningUniversityApp.Application.Services
         public void Delete(int id)
         {
             _studentRepository.Delete(id);
+            _studentRepository.SaveChanges();
         }
     }
 }

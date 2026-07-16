@@ -27,14 +27,12 @@ namespace LearningUniversityApp.Infrastructure.Repositories
         public void Create(Student student)
         {
             _context.students.Add(student);
-            _context.SaveChanges();
 
         }
 
         public void Delete(int Id)
         {
             _context.students.Where(s=>s.Id == Id).ExecuteDelete();
-            _context.SaveChanges();
         }
 
         public void SaveChanges() => _context.SaveChanges();
