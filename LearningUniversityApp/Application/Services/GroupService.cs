@@ -22,7 +22,7 @@ namespace LearningUniversityApp.Application.Services
         {
             return _groupRepository.GetById(id);
         }
-        public List<Models.Group> GetAll(int? id_filter = null)
+        public List<Models.Group> GetAll(int? id_filter = null)   
         {
             var groups = _groupRepository.GetAll();
             

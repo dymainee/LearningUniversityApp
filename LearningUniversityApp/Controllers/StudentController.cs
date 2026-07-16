@@ -10,13 +10,13 @@ namespace LearningUniversityApp.Controllers
 {
     public class StudentController : Controller
     {
-        private ApplicationContext _context;
         private readonly IStudentService _studentService;
+        private readonly IGroupService _groupService;
 
-        public StudentController(ApplicationContext context, IStudentService studentService)
+        public StudentController(ApplicationContext context, IStudentService studentService, IGroupService groupService)
         {
-            _context = context;
             _studentService = studentService;
+            _groupService = groupService;
         }
 
         public IActionResult Menu()
@@ -51,8 +51,9 @@ namespace LearningUniversityApp.Controllers
 
         public IActionResult Add()
         {
+            
             StudentCreateViewModel studentCreateViewModel = new StudentCreateViewModel();
-            studentCreateViewModel.Groups = _context.groups.Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
+            studentCreateViewModel.Groups = _groupService.GetAll().Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
             return View(studentCreateViewModel);
         }
 

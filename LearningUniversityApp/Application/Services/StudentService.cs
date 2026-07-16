@@ -8,12 +8,10 @@ namespace LearningUniversityApp.Application.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-        private readonly ApplicationContext _context;
 
-        public StudentService(IStudentRepository studentRepository, ApplicationContext context)
+        public StudentService(IStudentRepository studentRepository)
         {
             _studentRepository = studentRepository;
-            _context = context;
         }
 
         public Student GetById(int id)
@@ -39,14 +37,12 @@ namespace LearningUniversityApp.Application.Services
             existed_student.Surname = student.Surname;
             existed_student.DateOfBirth = student.DateOfBirth;
 
-            _context.SaveChanges();
+            _studentRepository.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            Student student = GetById(id);
-            _context.students.Remove(student);
-            _context.SaveChanges();
+            _studentRepository.Delete(id);
         }
     }
 }

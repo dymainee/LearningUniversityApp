@@ -8,5 +8,8 @@ namespace LearningUniversityApp.Infrastructure.Interfaces
         public Student GetById(int id);
         public List<Student> GetAll();
         public void Create(Student student);
+        public void Delete(int Id);
+
+        public void SaveChanges();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using LearningUniversityApp.Infrastructure.Data;
 using LearningUniversityApp.Infrastructure.Interfaces;
 using LearningUniversityApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearningUniversityApp.Infrastructure.Repositories
 {
@@ -27,6 +28,15 @@ namespace LearningUniversityApp.Infrastructure.Repositories
         {
             _context.students.Add(student);
             _context.SaveChanges();
+
         }
+
+        public void Delete(int Id)
+        {
+            _context.students.Where(s=>s.Id == Id).ExecuteDelete();
+            _context.SaveChanges();
+        }
+
+        public void SaveChanges() => _context.SaveChanges();
     }
 }
