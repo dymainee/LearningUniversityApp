@@ -2,6 +2,7 @@
 using LearningUniversityApp.Infrastructure.Data;
 using LearningUniversityApp.Infrastructure.Interfaces;
 using LearningUniversityApp.Models;
+using LearningUniversityApp.ViewModels;
 
 namespace LearningUniversityApp.Application.Services
 {
@@ -31,12 +32,13 @@ namespace LearningUniversityApp.Application.Services
             _studentRepository.SaveChanges();
         }
 
-        public void Edit(Student student)
+        public void Edit(int id, string name, string surname, DateOnly dateOfBirth, int groupId)
         {
-            Student existed_student = GetAll().First(s => s.Name == student.Name);
-            existed_student.Name = student.Name;
-            existed_student.Surname = student.Surname;
-            existed_student.DateOfBirth = student.DateOfBirth;
+            Student existed_student = GetById(id);
+            existed_student.Name = name;
+            existed_student.Surname = surname;
+            existed_student.DateOfBirth = dateOfBirth;
+            existed_student.GroupId = groupId;
 
             _studentRepository.SaveChanges();
         }

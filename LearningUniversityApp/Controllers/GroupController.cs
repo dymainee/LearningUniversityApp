@@ -25,6 +25,10 @@ namespace LearningUniversityApp.Controllers
         public IActionResult Show(GroupComplexViewModel groupViewModel) 
         {
             var groups = _groupService.GetAll(groupViewModel.id_filter).OrderBy(g => g.Title).AsQueryable();
+
+            if (groupViewModel.id_filter.HasValue) {
+                groups = groups.Where(g => g.Id == groupViewModel.id_filter);
+            }
             
             switch (groupViewModel.sortField)
             {

@@ -44,8 +44,11 @@ namespace LearningUniversityApp.Controllers
                     students = studentFilterViewModel.sortOrder == SortOrder.Descending ? students.OrderByDescending(g => g.Id) : students.OrderBy(g => g.Id);
                     break;
             }
+            studentFilterViewModel.TotalCount = students.Count();
 
-            studentFilterViewModel.students = students.ToList();
+            studentFilterViewModel.students = students.Skip((studentFilterViewModel.PageNumber - 1) * studentFilterViewModel.PageSize)
+                                          .Take(studentFilterViewModel.PageSize)
+                                          .ToList();
             return View(studentFilterViewModel);
         }
 
@@ -68,13 +71,20 @@ namespace LearningUniversityApp.Controllers
         public IActionResult Edit(int id)
         {
             Student student = _studentService.GetById(id);
-            return View(student);
+            StudentCreateViewModel studentCreateViewModel = new StudentCreateViewModel();
+            studentCreateViewModel.Groups = _groupService.GetAll().Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
+            studentCreateViewModel.GroupId = student.GroupId;
+            studentCreateViewModel.Surname = student.Surname;
+            studentCreateViewModel.DateOfBirth = student.DateOfBirth;
+            studentCreateViewModel.Name = student.Name;
+            studentCreateViewModel.Id = student.Id;
+            return View(studentCreateViewModel);
         }
 
         [HttpPost]
-        public IActionResult EditPost(Student student)
+        public IActionResult EditPost(StudentCreateViewModel studentCreateViewModel)
         {
-            _studentService.Edit(student);
+            _studentService.Edit(studentCreateViewModel.Id, studentCreateViewModel.Name, studentCreateViewModel.Surname, studentCreateViewModel.DateOfBirth, studentCreateViewModel.GroupId);
             return RedirectToAction("Show");
         }
 
@@ -84,5 +94,7 @@ namespace LearningUniversityApp.Controllers
 
             return RedirectToAction("Show");
         }
+
+        
     }
 }

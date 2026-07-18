@@ -1,20 +1,46 @@
-﻿@model LearningUniversityApp.Models.Student
+﻿@model LearningUniversityApp.ViewModels.StudentCreateViewModel
 
-<form asp-controller="Student"
-      asp-action="EditPost"
-      method="post">
+<body>
+    <form asp-controller="Student" asp-action="EditPost" method="post">
 
-    <input type="hidden" asp-for="Id">
+        <input asp-for="Id" type="hidden" />
 
-    <label>Name</label>
-    <input asp-for="Name">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center text-uppercase mb-5">Modify a student</h2>
+                </div>
+            </div>
 
-    <label>Surname</label>
-    <input asp-for="Surname">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-12">
+           
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">First Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter first name" required />
+                    </div>
 
-    <label>Date of birth</label>
-    <input type="date" asp-for="DateOfBirth">
+                    <div class="mb-3">
+                        <label asp-for="Surname" class="form-label">Last Name</label>
+                        <input asp-for="Surname" class="form-control" placeholder="Enter last name" required />
+                    </div>
 
-    <button type="submit">Submit</button>
+                    <div class="mb-3">
+                        <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+                        <input asp-for="DateOfBirth" type="date" class="form-control" required />
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="GroupId" class="form-label">Choose a group</label>
+                        <select asp-for="GroupId" asp-items="Model.Groups" class="form-control" required>
+                            <option value="">-- Choose a group --</option>
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                    </div>
 
-</form>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
