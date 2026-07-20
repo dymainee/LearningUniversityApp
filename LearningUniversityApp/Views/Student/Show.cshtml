@@ -46,16 +46,10 @@
 									<td>
 										<div class="d-flex gap-3">
 											<div class="d-flex gap-3">
-												<a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id"
-												   class="btn btn-primary btn-sm px-4">
-													Modify
-												</a>
-												<form asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" method="post" style="display:inline;">
-													<button type="submit" class="btn btn-danger btn-sm px-4">
-														Delete
-													</button>
-												</form>
+												<a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" class="btn btn-primary btn-sm px-4">Modify</a>
+												<a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" style="display:inline;">Delete</a>
 											</div>
+										</div>
 									</td>
 								</tr>
 							}

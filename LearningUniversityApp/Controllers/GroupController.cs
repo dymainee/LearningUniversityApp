@@ -48,11 +48,10 @@ namespace LearningUniversityApp.Controllers
 
             groupViewModel.TotalCount = groups.Count();
 
-            groupViewModel.groups = groups.Skip((groupViewModel.PageNumber - 1) * groupViewModel.PageSize)
-                                          .Take(groupViewModel.PageSize)
-                                          .ToList();
-          
-          
+            groupViewModel.groups = groups.ToList();//Skip((groupViewModel.PageNumber - 1) * groupViewModel.PageSize)
+            //                              .Take(groupViewModel.PageSize)
+            //                              ;
+
             return View(groupViewModel);
         }
 

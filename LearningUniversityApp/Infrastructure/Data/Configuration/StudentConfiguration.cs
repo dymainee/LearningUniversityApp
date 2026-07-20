@@ -14,7 +14,7 @@ namespace LearningUniversityApp.Infrastructure.Data.Configuration
               .HasOne(s => s.Group)
               .WithMany(s => s.students)
               .HasForeignKey(s => s.GroupId)
-              .OnDelete(DeleteBehavior.Cascade);
+              .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
