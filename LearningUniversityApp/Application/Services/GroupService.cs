@@ -51,9 +51,8 @@ namespace LearningUniversityApp.Application.Services
 
         public void Delete(int id)
         {
-            Models.Group group = GetById(id);
-            _context.groups.Remove(group);
-            _context.SaveChanges();
+            _groupRepository.Delete(id);
+            _context.SaveChanges(); 
         }
 
         

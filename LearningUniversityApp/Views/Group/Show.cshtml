@@ -10,20 +10,27 @@
 		<div class="row">
 			<div class="col-12 d-flex justify-content-center">
 				<form asp-controller="Group" asp-action="Show">
-					<table class="table table-primary">
+					<table class="table table-primary align-middle">
 						<thead>
-							<tr>
-								<input name="id_filter" type="number">
-								<input name="title_filter" type="text">
-								<input name="description_filter" type="text">
-								<button type="submit">Застосувати</button>
+							<tr class="table-light">
+								<th>
+									<input name="id_filter" value="@Model.id_filter" type="number" class="form-control form-control-sm" >
+								</th>
+								<th>
+									<input name="title_filter" value="@Model.title_filter" type="text" class="form-control form-control-sm">
+								</th>
+								<th>
+									<button type="submit" class="btn btn-sm btn-success w-100">
+										Застосувати
+									</button>
+								</th>
 							</tr>
 							<tr>
 								<th scope="col">
 									<a asp-action="Show" asp-route-sortField="Id" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Id</a>
 								</th>
 								<th scope="col">
-									<a asp-action="Show" asp-route-sortField="Title" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending  ? SortOrder.Descending : SortOrder.Ascending)">Title</a>
+									<a asp-action="Show" asp-route-sortField="Title" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Title</a>
 								</th>
 								<th scope="col">Description</th>
 								<th scope="col">Actions</th>
@@ -38,31 +45,31 @@
 									<td>@group.Description</td>
 									<td>
 										<div class="d-flex gap-3">
-											<a asp-controller="Group" asp-action="Edit" asp-route-id="@group.Id"
-											   class="btn btn-primary btn-sm px-5 ">
-												Modify
-											</a>
-											<form asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id">
-												<button type="submit" class="btn btn-danger btn-sm px-5">
-													Delete
-												</button>
-											</form>
+											<div class="d-flex gap-3">
+												<a asp-controller="Group" asp-action="Edit" asp-route-id="@group.Id"
+												   class="btn btn-primary btn-sm px-4">
+													Modify
+												</a>
+												<form asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id" method="post" style="display:inline;">
+													<button type="submit" class="btn btn-danger btn-sm px-4">
+														Delete
+													</button>
+												</form>
 										</div>
 									</td>
 								</tr>
 							}
 						</tbody>
-					</table>
-					
+					</table>					
 				</form>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12 d-flex align-items-center justify-content-center">
+			<div class="col-12 d-flex align-items-center justify-content-center gap-3">
 				<a asp-controller="Group" asp-action="Add"
-				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Add a new Group</a>
+				   class="btn btn-info btn-sm px-5 mt-3 text-white">Add a new Group</a>
 				<a asp-controller="Group" asp-action="ReturnToMenu"
-				   class="btn btn-primary btn-sm px-5 mt-3" style="background-color:lightblue ">Return back</a>
+				   class="btn btn-secondary btn-sm px-5 mt-3">Return back</a>
 			</div>
 		</div>
 	</section>
@@ -72,7 +79,43 @@
 @{
 	int totalPages = (int)Math.Ceiling((double)Model.TotalCount / Model.PageSize);
 }
-@for (int page_n = 1; page_n <= totalPages; page_n++)
+@if (totalPages > 1)
 {
-	<a asp-action="Show" asp-route-PageNumber="@page_n" asp-route-sortOrder="@Model.sortOrder" asp-route-sortField="@Model.sortField" asp-route-id_filter="@Model.id_filter">@page_n</a>
+	<div class="row mt-4">
+		<div class="col-12 d-flex justify-content-center align-items-center gap-2">
+			@if (Model.PageNumber > 1)
+			{
+				<a asp-action="Show"
+				   asp-route-PageNumber="@(Model.PageNumber - 1)"
+				   asp-route-sortOrder="@Model.sortOrder"
+				   asp-route-sortField="@Model.sortField"
+				   asp-route-id_filter="@Model.id_filter"
+				   class="btn btn-sm btn-outline-secondary">
+					&laquo;
+				</a>
+			}
+			@for (int page_n = 1; page_n <= totalPages; page_n++)
+			
+			{
+				<a asp-action="Show"
+				   asp-route-PageNumber="@page_n"
+				   asp-route-sortOrder="@Model.sortOrder"
+				   asp-route-sortField="@Model.sortField"
+				   asp-route-id_filter="@Model.id_filter">
+					@page_n
+				</a>
+			}
+			@if (Model.PageNumber < totalPages)
+			{
+				<a asp-action="Show"
+				   asp-route-PageNumber="@(Model.PageNumber + 1)"
+				   asp-route-sortOrder="@Model.sortOrder"
+				   asp-route-sortField="@Model.sortField"
+				   asp-route-id_filter="@Model.id_filter"
+				   class="btn btn-sm btn-outline-secondary">
+					&raquo;
+				</a>
+			}
+		</div>
+	</div>
 }

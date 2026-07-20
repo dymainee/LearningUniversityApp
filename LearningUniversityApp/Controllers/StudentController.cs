@@ -34,6 +34,11 @@ namespace LearningUniversityApp.Controllers
                 students = students.Where(g => g.Id == studentFilterViewModel.id_filter);
             }
 
+            if (!string.IsNullOrEmpty(studentFilterViewModel.name_filter))
+            {
+                students = students.Where(g => g.Name.Contains(studentFilterViewModel.name_filter));
+            }
+
             switch (studentFilterViewModel.sortField)
             {
                 case "Id":
@@ -41,7 +46,7 @@ namespace LearningUniversityApp.Controllers
                     break;
 
                 case "Name":
-                    students = studentFilterViewModel.sortOrder == SortOrder.Descending ? students.OrderByDescending(g => g.Id) : students.OrderBy(g => g.Id);
+                    students = studentFilterViewModel.sortOrder == SortOrder.Descending ? students.OrderByDescending(g => g.Name) : students.OrderBy(g => g.Name);
                     break;
             }
             studentFilterViewModel.TotalCount = students.Count();

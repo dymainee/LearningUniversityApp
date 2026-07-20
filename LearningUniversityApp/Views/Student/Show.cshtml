@@ -1,43 +1,121 @@
 ﻿@using LearningUniversityApp.ViewModels
 @model StudentFilterViewModel
-<a asp-controller="Student" asp-action="Add">Add new student</a>
-<table>
-    <thead>
-        <tr>
-            <input name="id_filter" type="number">
-            <input name="title_filter" type="text">
-            <input name="description_filter" type="text">
-        </tr>
-        <tr>
-            <th scope="col">
-                <a asp-action="Show" asp-route-sortField="Id" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Id</a>
-            </th>
-            <th scope="col">
-                <a asp-action="Show" asp-route-sortField="Name" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Name</a>
-            </th>
-            <th>Surname</th>
-            <th>Age</th>
-            <th>Date of birth</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Student student in Model.students)
-        {
-            <tr>
-                <td>@student.Id</td>
-                <td>@student.Name</td>
-                <td>@student.Surname</td>
-                <td>@student.DateOfBirth</td>
-                <td>
-                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Modify</a>
-                </td>
-                <td>
-                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Delete </a>
-                    </td>
-            </tr>
-        }
+<body>
+	<section class="Students">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="text-center text-uppercase mb-5"> All Students </h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 d-flex justify-content-center">
+				<form asp-controller="Student" asp-action="Show">
+					<table class="table table-primary align-middle">
+						<thead>
+							<tr class="table-light">
+								<th>
+									<input name="id_filter" value="@Model.id_filter" type="number" class="form-control form-control-sm">
+								</th>
+								<th>
+									<input name="name_filter" value="@Model.name_filter" type="text" class="form-control form-control-sm">
+								</th>
+								<th>
+									<button type="submit" class="btn btn-sm btn-success w-100">
+										Застосувати
+									</button>
+								</th>
+							</tr>
+							<tr>
+								<th scope="col">
+									<a asp-action="Show" asp-route-sortField="Id" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Id</a>
+								</th>
+								<th scope="col">
+									<a asp-action="Show" asp-route-sortField="Name" asp-route-sortOrder="@(Model.sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending)">Name</a>
+								</th>
+								<th scope="col">Description</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (Student student in Model.students)
+							{
+								<tr>
+									<th scope="row">@student.Id</th>
+									<td>@student.Name</td>
+									<td>@student.Surname</td>
+									<td>
+										<div class="d-flex gap-3">
+											<div class="d-flex gap-3">
+												<a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id"
+												   class="btn btn-primary btn-sm px-4">
+													Modify
+												</a>
+												<form asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" method="post" style="display:inline;">
+													<button type="submit" class="btn btn-danger btn-sm px-4">
+														Delete
+													</button>
+												</form>
+											</div>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 d-flex align-items-center justify-content-center gap-3">
+				<a asp-controller="Student" asp-action="Add"
+				   class="btn btn-info btn-sm px-5 mt-3 text-white">Add a new Student</a>
+				<a asp-controller="Student" asp-action="ReturnToMenu"
+				   class="btn btn-secondary btn-sm px-5 mt-3">Return back</a>
+			</div>
+		</div>
+	</section>
 
-    </tbody>
+</body>
 
+@{
+	int totalPages = (int)Math.Ceiling((double)Model.TotalCount / Model.PageSize);
+}
+@if (totalPages > 1)
+{
+	<div class="row mt-4">
+		<div class="col-12 d-flex justify-content-center align-items-center gap-2">
+			@if (Model.PageNumber > 1)
+			{
+				<a asp-action="Show"
+				   asp-route-PageNumber="@(Model.PageNumber - 1)"
+				   asp-route-sortOrder="@Model.sortOrder"
+				   asp-route-sortField="@Model.sortField"
+				   asp-route-id_filter="@Model.id_filter"
+				   class="btn btn-sm btn-outline-secondary">
+					&laquo;
+				</a>
+			}
+			@for (int page_n = 1; page_n <= totalPages; page_n++)
 
-</table>
+			{
+				<a asp-action="Show"
+				   asp-route-PageNumber="@page_n"
+				   asp-route-sortOrder="@Model.sortOrder"
+				   asp-route-sortField="@Model.sortField"
+				   asp-route-id_filter="@Model.id_filter">
+					@page_n
+				</a>
+			}
+			@if (Model.PageNumber < totalPages)
+			{
+				<a asp-action="Show"
+				   asp-route-PageNumber="@(Model.PageNumber + 1)"
+				   asp-route-sortOrder="@Model.sortOrder"
+				   asp-route-sortField="@Model.sortField"
+				   asp-route-id_filter="@Model.id_filter"
+				   class="btn btn-sm btn-outline-secondary">
+					&raquo;
+				</a>
+			}
+		</div>
+	</div>
+}

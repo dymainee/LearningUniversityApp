@@ -29,7 +29,12 @@ namespace LearningUniversityApp.Controllers
             if (groupViewModel.id_filter.HasValue) {
                 groups = groups.Where(g => g.Id == groupViewModel.id_filter);
             }
-            
+
+            if (!string.IsNullOrEmpty(groupViewModel.title_filter))
+            {
+                groups = groups.Where(g => g.Title.Contains(groupViewModel.title_filter));
+            }
+
             switch (groupViewModel.sortField)
             {
                 case "Id":
@@ -37,7 +42,7 @@ namespace LearningUniversityApp.Controllers
                     break;
 
                 case "Title":
-                    groups = groupViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Id) : groups.OrderBy(g => g.Id);
+                    groups = groupViewModel.sortOrder == SortOrder.Descending ? groups.OrderByDescending(g => g.Title) : groups.OrderBy(g => g.Title);
                     break;
             }
 
