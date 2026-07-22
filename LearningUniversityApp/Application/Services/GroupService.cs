@@ -9,10 +9,10 @@ namespace LearningUniversityApp.Application.Services
 {
     public class GroupService : IGroupService
     {
-        private readonly IGroupRepository _groupRepository;
+        private readonly IRepository<Models.Group> _groupRepository;
         private readonly ApplicationContext _context;
 
-        public GroupService(IGroupRepository groupRepository, ApplicationContext context)
+        public GroupService(IRepository<Models.Group> groupRepository, ApplicationContext context)
         {
             _groupRepository = groupRepository;
             _context = context;
@@ -38,6 +38,7 @@ namespace LearningUniversityApp.Application.Services
         {
             Models.Group new_group = new Models.Group(Title, Description);
             _groupRepository.Create(new_group);
+            _context.SaveChanges();
         }
 
         public void Edit(Models.Group group)

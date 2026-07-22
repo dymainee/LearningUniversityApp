@@ -27,7 +27,6 @@ namespace LearningUniversityApp.Infrastructure.Repositories
         public void Create(Student student)
         {
             _context.students.Add(student);
-
         }
 
         public void Delete(int Id)
