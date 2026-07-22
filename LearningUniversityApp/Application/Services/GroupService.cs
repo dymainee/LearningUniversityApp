@@ -67,7 +67,5 @@ namespace LearningUniversityApp.Application.Services
             _groupRepository.Delete(id);
             _context.SaveChanges(); 
         }
-
-        
     }
 }

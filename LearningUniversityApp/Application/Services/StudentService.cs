@@ -1,8 +1,6 @@
 ﻿using LearningUniversityApp.Application.Interfaces;
-using LearningUniversityApp.Infrastructure.Data;
 using LearningUniversityApp.Infrastructure.Interfaces;
 using LearningUniversityApp.Models;
-using LearningUniversityApp.ViewModels;
 
 namespace LearningUniversityApp.Application.Services
 {
@@ -21,11 +19,6 @@ namespace LearningUniversityApp.Application.Services
         }
 
         public List<Student> GetAll()
-        {
-            return _studentRepository.GetAll();
-        }
-
-        public List<Student> GetAllSorted()
         {
             return _studentRepository.GetAll();
         }
