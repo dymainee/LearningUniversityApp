@@ -25,6 +25,11 @@ namespace LearningUniversityApp.Application.Services
             return _studentRepository.GetAll();
         }
 
+        public List<Student> GetAllSorted()
+        {
+            return _studentRepository.GetAll();
+        }
+
         public void Create(string name, string surname, DateOnly dateofbirth, int groupId)
         {
             Student new_student = new Student(name, surname, dateofbirth, groupId);

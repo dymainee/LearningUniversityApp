@@ -5,15 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LearningUniversityApp.Infrastructure.Repositories
 {
-    public class GroupRepository : IGroupRepository
+    public class GroupRepository : Repository<Group>, IGroupRepository
     {
-        private ApplicationContext _context;
-        public GroupRepository(ApplicationContext context)
+        public GroupRepository(ApplicationContext context):base(context) { }
+
+        public List<Group> GetAllWithStudens()
         {
-            _context = context;
+            return _context.groups.Include(g=>g.students).ToList();
         }
-
-
-        
     }
 }

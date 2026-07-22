@@ -6,7 +6,7 @@ namespace LearningUniversityApp.Infrastructure.Repositories
 {
     public class Repository<Model> : IRepository<Model> where Model : class
     {
-        private readonly ApplicationContext _context;
+        protected readonly ApplicationContext _context;
         protected readonly DbSet<Model> _modelSet;
         public Repository(ApplicationContext context)
         {

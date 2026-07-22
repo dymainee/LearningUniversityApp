@@ -9,10 +9,10 @@ namespace LearningUniversityApp.Application.Services
 {
     public class GroupService : IGroupService
     {
-        private readonly IRepository<Models.Group> _groupRepository;
+        private readonly IGroupRepository _groupRepository;
         private readonly ApplicationContext _context;
 
-        public GroupService(IRepository<Models.Group> groupRepository, ApplicationContext context)
+        public GroupService(IGroupRepository groupRepository, ApplicationContext context)
         {
             _groupRepository = groupRepository;
             _context = context;
@@ -31,6 +31,18 @@ namespace LearningUniversityApp.Application.Services
                 groups = groups.Where(g => g.Id == id_filter).ToList();
             }
 
+            return groups;
+        }
+
+        public List<Models.Group> GetAllWithStudents(int? id_filter = null)
+        {
+            var groups = _groupRepository.GetAllWithStudens();
+            if (id_filter.HasValue)
+            {
+                groups = groups.Where(g => g.Id == id_filter).ToList();
+               
+            }
+          
             return groups;
         }
 

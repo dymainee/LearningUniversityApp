@@ -2,8 +2,8 @@
 
 namespace LearningUniversityApp.Infrastructure.Interfaces
 {
-    public interface IGroupRepository
+    public interface IGroupRepository : IRepository<Group>
     {
-      
+        public List<Group> GetAllWithStudens();
     }
 }
