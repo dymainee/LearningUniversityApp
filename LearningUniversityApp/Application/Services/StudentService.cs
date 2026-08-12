@@ -25,7 +25,8 @@ namespace LearningUniversityApp.Application.Services
 
         public void Create(string name, string surname, DateOnly dateofbirth, int groupId)
         {
-            Student new_student = new Student(name, surname, dateofbirth, groupId);
+            Student new_student = new Student(groupId);
+            User new_user = new User(name, surname, dateofbirth);
             _studentRepository.Create(new_student);
             _studentRepository.SaveChanges();
         }
@@ -33,9 +34,9 @@ namespace LearningUniversityApp.Application.Services
         public void Edit(int id, string name, string surname, DateOnly dateOfBirth, int groupId)
         {
             Student existed_student = GetById(id);
-            existed_student.Name = name;
-            existed_student.Surname = surname;
-            existed_student.DateOfBirth = dateOfBirth;
+            //existed_student.Name = name;
+            //existed_student.Surname = surname;
+            //existed_student.DateOfBirth = dateOfBirth;
             existed_student.GroupId = groupId;
 
             _studentRepository.SaveChanges();

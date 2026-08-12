@@ -75,9 +75,9 @@ namespace LearningUniversityApp.Controllers
         public IActionResult EditPost(Teacher teacher)
         {
             Teacher updatedTeacher = _context.teachers.FirstOrDefault(s => s.Id == teacher.Id);
-            updatedTeacher.Name = teacher.Name;
-            updatedTeacher.Surname = teacher.Surname;
-            updatedTeacher.DateOfBirth = teacher.DateOfBirth;
+            //updatedTeacher.Name = teacher.Name;
+            //updatedTeacher.Surname = teacher.Surname;
+            //updatedTeacher.DateOfBirth = teacher.DateOfBirth;
             _context.SaveChanges();
             return RedirectToAction("Show");
         }

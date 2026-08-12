@@ -27,7 +27,7 @@ namespace LearningUniversityApp.Controllers
         public IActionResult Show(StudentFilterViewModel studentFilterViewModel)
         {
             Console.WriteLine("Викликано сервіс");
-            var students = _studentService.GetAll().OrderBy(g => g.Name).AsQueryable();
+            var students = _studentService.GetAll().AsQueryable();//OrderBy(g => g.Name).
 
             if (studentFilterViewModel.id_filter.HasValue)
             {
@@ -36,7 +36,7 @@ namespace LearningUniversityApp.Controllers
 
             if (!string.IsNullOrEmpty(studentFilterViewModel.name_filter))
             {
-                students = students.Where(g => g.Name.Contains(studentFilterViewModel.name_filter));
+                //students = students.Where(g => g.Name.Contains(studentFilterViewModel.name_filter));
             }
 
             switch (studentFilterViewModel.sortField)
@@ -46,7 +46,7 @@ namespace LearningUniversityApp.Controllers
                     break;
 
                 case "Name":
-                    students = studentFilterViewModel.sortOrder == SortOrder.Descending ? students.OrderByDescending(g => g.Name) : students.OrderBy(g => g.Name);
+                    //students = studentFilterViewModel.sortOrder == SortOrder.Descending ? students.OrderByDescending(g => g.Name) : students.OrderBy(g => g.Name);
                     break;
             }
             studentFilterViewModel.TotalCount = students.Count();
@@ -79,9 +79,10 @@ namespace LearningUniversityApp.Controllers
             StudentCreateViewModel studentCreateViewModel = new StudentCreateViewModel();
             studentCreateViewModel.Groups = _groupService.GetAll().Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
             studentCreateViewModel.GroupId = student.GroupId;
-            studentCreateViewModel.Surname = student.Surname;
-            studentCreateViewModel.DateOfBirth = student.DateOfBirth;
-            studentCreateViewModel.Name = student.Name;
+           
+            //studentCreateViewModel.Surname = student.Surname;
+            //studentCreateViewModel.DateOfBirth = student.DateOfBirth;
+            //studentCreateViewModel.Name = student.Name;
             studentCreateViewModel.Id = student.Id;
             return View(studentCreateViewModel);
         }

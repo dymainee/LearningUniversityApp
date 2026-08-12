@@ -1,6 +1,7 @@
 ﻿using LearningUniversityApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace LearningUniversityApp.Infrastructure.Data.Configuration
 {
@@ -15,6 +16,11 @@ namespace LearningUniversityApp.Infrastructure.Data.Configuration
               .WithMany(s => s.students)
               .HasForeignKey(s => s.GroupId)
               .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+             .HasOne(e => e.User)
+             .WithOne()
+             .HasForeignKey<Student>(e => e.UserId);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace LearningUniversityApp.Controllers
 
             ScheduleCreateViewModel model = new ScheduleCreateViewModel();
             model.Groups = _context.groups.Select(s => new SelectListItem(s.Title, s.Id.ToString())).ToList();
-            model.Teachers = _context.teachers.Select(t => new SelectListItem(t.Surname, t.Id.ToString())).ToList();
+            //model.Teachers = _context.teachers.Select(t => new SelectListItem(t.Surname, t.Id.ToString())).ToList();
             model.Subjects = _context.subjects.Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
             model.Days = DaySelectListItems;
             model.LessonNumbers = LessonNumberSelectListItems;
@@ -110,7 +110,7 @@ namespace LearningUniversityApp.Controllers
             }
             ScheduleCreateViewModel model = new ScheduleCreateViewModel();
             model.Groups = _context.groups.Select(s => new SelectListItem(s.Title, s.Id.ToString())).ToList();
-            model.Teachers = _context.teachers.Select(t => new SelectListItem(t.Surname, t.Id.ToString())).ToList();
+            //model.Teachers = _context.teachers.Select(t => new SelectListItem(t.Surname, t.Id.ToString())).ToList();
             model.Subjects = _context.subjects.Select(g => new SelectListItem(g.Title, g.Id.ToString())).ToList();
             model.Days = selectListItems;
     
